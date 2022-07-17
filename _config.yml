@@ -1,5 +1,6 @@
 # Site Settings
-baseurl: "/Grape-Academic-Theme"
+baseurl: ""
+url: "navskh.github.io"
 
 # Blog Setting
 blog: True
