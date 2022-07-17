@@ -1,33 +1,42 @@
-# > name: Name of your project
-# > descr: Description of your project
-# > demo: Link to your project
-# > tags: List of technologies you used in your projects
-#
-# Example of a project
-# - name: project X
-#   descr: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam"
-#   demo: https://example.com/
-#   tags:
-#     - tag: MongoDB
-#     - tag: Express
-#     - tag: AngularJS
-#     - tag: Node
+- project :
+    print: True # If 'False' is selected, it will not be displayed in 'home.html > aside > .proj-content'. 
+    modal: True # If 'True' is selected, modal can open in 'portfolio.html'. 
+    url: https://github.com/chrjabs/Grape-Academic-Theme # Full URL
+    image:
+      path: "portfolio.png" # path: assets/project/
+      alt: "A screenshot of the portfolio page"
+    date: 05/2022 &ndash; Developing
+    title: Grape-Theme
+    summary: Academic portfolio jekyll theme.
+    description: A modification of the Grape-Theme for jekyll to be useable as an academic portfolio.
+    contents:
+        - title: 1. Portfolio Page
+          image:
+            path: portfolio.png
+            alt: "A screenshot of the portfolio page"
+          description: <li>Concise portfolio page</li>
+            <li>Recent publications</li>
+            <li>Projects</li>
+        - title: 2. Optional Blog Functionality
+          image:
+            path: home.png
+            alt: "A screenshot of the blog page"
+          description: <li>Responsive Layout</li>
+            <li>Tags</li> 
+            <li>Pagination</li>
+        - title: 3. Tags Page
+          image:
+            path: tags.png
+            alt: "A screenshot of the tags page"
+          description: <li>Responsive Layout</li> 
+            <li>Tags</li> 
 
-- name: project X
-  descr: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam"
-  demo: https://example.com/
-  tags:
-    - tag: MongoDB
-    - tag: Express
-    - tag: AngularJS
-    - tag: Node
-
-- name: project Y
-  descr: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam"
-  demo: https://example.com/
-  tags:
-    - tag: Python
-    - tag: Django
-
-- name: project Z
-  descr: "You can also set a project without demo link and no tags"
+- project:
+    print: True # If 'False' is selected, it will not be displayed in 'home.html > aside > .proj-content'. 
+    modal: True # If 'True' is selected, modal can open in 'portfolio.html'. 
+    url:  # Full URL
+    image: # path: assets/project/
+    date: 06/2019 &ndash; Developing
+    title: Dummy project
+    summary: This is a Dummy
+    description:  

@@ -1,210 +1,203 @@
-# Neumorphism <!-- omit in toc -->
+# Grape-Academic-Theme
 
-> Neumorphism designed Jekyll theme for personal websites, portfolios and resumes.
-
-* Featured on [JAMstack Themes](https://jamstackthemes.dev/theme/jekyll-neumorphism/)
-* Featured on [Jekyll Themes](https://jekyll-themes.com/neumorphism/)
-* Featured on [jekyllthemes](http://jekyllthemes.org/themes/neumorphism/)
-
-[![Open Issues](https://badgen.net/github/open-issues/longpdo/neumorphism)](https://github.com/longpdo/neumorphism/issues)
-[![License](https://badgen.net/github/license/longpdo/neumorphism)](LICENSE)
 <a href="https://jekyll-themes.com">
-    <img src="https://img.shields.io/badge/featured%20on-JT-red.svg" height="20" alt="Jekyll Themes Shield" >
+    <img src="https://img.shields.io/badge/featured%20on-JekyllThemes-red.svg" height="20" alt="Jekyll Themes Shield" loading="lazy">
 </a>
 
-[View Demo](https://longpdo.github.io/neumorphism/) · [Report Bug](https://github.com/longpdo/neumorphism/issues) · [Request Feature](https://github.com/longpdo/neumorphism/issues)
+---
 
-<!-- TABLE OF CONTENTS -->
-## Table of Contents <!-- omit in toc -->
+![home](https://chrjabs.github.io/Grape-Academic-Theme/assets/img/portfolio.png)
 
-* [About The Project](#about-the-project)
-  * [Built With](#built-with)
-  * [Features](#features)
-* [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
-* [Usage](#usage)
-  * [Personalize and Customize](#personalize-and-customize)
-    * [_config.yml](#_configyml)
-    * [Github Metadata Plugin](#github-metadata-plugin)
-    * [_data/*.yml](#_datayml)
-    * [Particles.js](#particlesjs)
-* [Contributing](#contributing)
-* [License](#license)
-* [Acknowledgements](#acknowledgements)
+Welcome to Grape Academic Theme!
+This theme is based on [Grape Theme](https://github.com/naye0ng/Grape-Theme) and modifies it to be more directly applicable as an academic portfolio page.
+It can still include a blog, but that is optional.
 
-<!-- ABOUT THE PROJECT -->
+[Demo](https://chrjabs.github.io/Grape-Academic-Theme)
 
-## About The Project
+## Installation and Serving Local Version for Testing
 
-[![Project Screenshot][product-screenshot]](https://longpdo.github.io/neumorphism/)
+1. Fork and clone the Grape Academic Theme repo
 
-This is a personal website built with `Jekyll` and hosted on `Github Pages`, which is based on the new `Neumorphism` design trend and was developed with a mobile-first approach. This can be used by developers, who want to showcase their resume and portfolio. If you want to use this for your own website, fork this repository and then refer to [personalize and customize](#personalize-and-customize).
+   ```
+   git clone https://github.com/chrjabs/Grape-Academic-Theme.git
+   ```
 
-### Built With
+2. Install Jekyll 
 
-* [Jekyll](https://jekyllrb.com/)
+   ```
+   gem install jekyll
+   ```
 
-### Features
+3. Install the theme's dependencies
 
-* Mobile-First Responsive Design
-* Animated preloader animation
-* Landing Page with animated background with [particles.js](https://vincentgarreau.com/particles.js/), a Typing Carousel and animated social icons
-* Dark Neumorphism Design on main content
-* [Animations On Scroll](https://michalsnik.github.io/aos/)
-* Filterable *Skills* word cloud
-* [Github's API](https://developer.github.com/v3/) automatically populating the *Open Source Projects* section
-* Gulp dev workflow with [BrowserSync](https://browsersync.io/), [Autoprefixer](https://autoprefixer.github.io/) and `JS` & `SCSS` minifying.
-* [Google Analytics](https://analytics.google.com/)
+   ```
+   bundle install
+   ```
 
-<!-- GETTING STARTED -->
+4. Update `_config.yml`, `_data/projects.yml`, `_data/projects.yml` and `_bibliography/publications.bib` with your own settings.
 
-## Getting Started
+5. Run the Jekyll server
 
-To get a local copy up and running follow these simple steps.
+   ```
+   bundle exec jekyll serve
+   ```
 
-`The commands and instructions I provide are for MacOS - please look up the specific commands for your OS on your own.`
+## Publishing
 
-### Prerequisites
+Grape-Academic-Theme uses jekyll-scholar and therefore needs to manually be published to GitHub pages.
+A script for publishing on a `gh-pages` branch is included.
+Run `_scripts/publish.sh` from the main project directory and the page will be built, copied to the `gh-pages` branch and published.
+Make sure that GitHub pages is set up to publish that branch.
+If additional scripts should be executed in the HTML root, they can be placed in `_scripts/publish.d` and will be automatically executed.
 
-* [NodeJS](https://nodejs.org/en/)
+These are step-by-step instructions for forking and publishing the theme at your `<username>.github.io` github pages website:
 
-```sh
-brew install node
+1. For the repository to a repository named `<username>/<username>.github.io`
+2. Go to the settings of the new repository and navigate to the "Pages" tab.
+  There, change the source for github pages to the `gh-pages` branch of the repository.
+3. Clone the repository and go through the installation steps listed above
+4. In `_config.yml`, change the `baseurl` option to an empty string (`""`) to host the webpage in the root of your `github.io` page
+5. Commit the change and (with a working jekyll install) run `_scripts/publish.sh`
+6. _Wait a couple of minutes_ and the demo content will show up at `<username>.github.io`
+
+## Customizing
+
+Grape-Theme has two great features: the profile section and the project section of the portfolio page. Just by changing `_config.yml` and `projects.yml`, you can use all of these features.
+
+### Blog Settings
+
+The blog configuration is available in `_config.yml`.
+If you do not want to include a blog in your page, set `blog: False`.
+This will remove the navigation bar linking to the blog.
+
+### Favicon
+
+Generate your favicons with [realfavicongenerator.net](https://realfavicongenerator.net/) and place them in the root directory.
+The code to include them is already set up in the template.
+
+### Site configuration
+
+```
+baseurl: "{subpath}"
+
+theme_settings :
+  title: {blog title}
 ```
 
-If you need to switch between Node versions regurlarly, I would recommend to install Node via [Node Version Manager](https://github.com/nvm-sh/nvm/blob/master/README.md#manual-install).
+### Profile Settings
 
-* [Jekyll](https://jekyllrb.com/)
+Profile is displayed on the index page, and also experience and skills are displayed on the portfolio page.
+The profile is configured in `_data/profile.yml`.
 
-```sh
-gem install bundler jekyll
+```
+image: assets/img/smile.png
+username: Christoph Jabs
+description: creator of the Grape-Academic-Theme! Grape-Academic-Theme is a modification of the Grape-Theme by naye0ng, making it more suitable as an academic portfolio.
+webpage: https://chrjabs.github.io
+experience:
+  - start: 2017-05-03
+    end: 2018-05-06
+    experience : company name, title
+interests:
+  - Interest 1
+  - Interest 2
+skills: 
+  - skill: HTML5 & CSS
+    value: 85  # Percent value
 ```
 
-For more information, refer to [this](https://jekyllrb.com/docs/installation/).
+### Presentations
 
-* [Yarn](https://yarnpkg.com/)
+The data for the presentations page can be defined in `data/presentations.yml`.
 
-```sh
-npm install -g yarn
+```
+- presentation:
+    title: A nice presentation
+    event: Fancy conference
+    date: 05/2022
+    comment: This is some comment text that can do _Markdown_
+    slides: https://www.google.com # potential link to slides
+- presentation:
+    title: A second presentation
+    event: Another conference
+    date: 03/2022
 ```
 
-### Installation
+### Pagination
 
-> Recommended way: If you want to contribute to this theme or open issues due to problems implementing this on your own, I would recommend forking the repository directly. This makes it easier for me to solve open issues and questions or check pull requests.
+Defines the number of posts to be shown on one page.
 
-1.1: Fork the repository (using the `Fork` button at the top) and then clone the repository
-
-```sh
-# Replace {YOUR_USERNAME} with your actual username
-git clone https://github.com/{YOUR_USERNAME}/neumorphism.git
+```
+paginate: 5
 ```
 
-or
+### Portfolio Settings
 
-1.2: Create your own repository (using the green `Use this template` button at the top) and then clone the repository
+![home](https://chrjabs.github.io/Grape-Academic-Theme/assets/img/portfolio.png)
 
-```sh
-# Replace {YOUR_USERNAME}, {YOUR_REPOSITORY} with the actual values
-git clone https://github.com/{YOUR_USERNAME}/{YOUR_REPOSITORY}.git
+The Project configuration is available in `_data/projects.yml`.
+
+The portfolio page provides projects and detailed views by modal.
+If `modal : False` is selected, modal will not be displayed on site. 
+
+- **print** : 
+  
+  - If `print: True` is selected, it will be displayed on landing page
+  
+- **modal** 
+  
+  - If `modal: True` is selected, modal will be displayed on the Portfolio page
+  
+    ![home](https://chrjabs.github.io/Grape-Academic-Theme/assets/img/modal.png)
+
+```
+print: True
+modal: True  
 ```
 
-2: Change directory into neumorphism
+Add details(link, description) about your projects
 
-```sh
-cd neumorphism
+```
+url: https://github.com/naye0ng/Grape-Theme # Full URL
+image: "portfolio.png" # path: assets/project/
+date: 2019.06.09 - 2019.07.11
+title: 
+summary: 
+description:  
+# modal contents
+contents:
+  - title:
+    image:      	    
+    description: 
 ```
 
-3: Install dependencies
+### Colors
 
-```sh
-yarn
-bundle install
-```
+You can change colors at once. colors are in `_sass/base/_variable.scss`
 
-<!-- USAGE EXAMPLES -->
+## Posts in Grape theme
 
-## Usage
+You can confirm how to draw tags at [here](https://grape-theme.netlify.com/2019/06/08/markdown-and-html.html) and [here](https://grape-theme.netlify.com/2019/06/09/grape-theme-style.html)
 
-* Run and develop locally with live server at `http://localhost:4000`, this will also build production-ready `JS` and `SCSS` assets with every change
+### Create a new post
 
-```sh
-gulp
-```
+1. Create a `.md` inside `_posts` folder
+   ```
+   2019-07-11-grape-theme.md
+   ```
 
-* After committing and pushing, see the `Settings` page of your repository to see where your site is published at via `Github Pages`.
+2. Write the [Front Matter](https://jekyllrb.com/docs/front-matter/) and content in the file.
+   ```
+   ---
+   layout: post
+   title: title
+   subtitle : subtitle
+   tags: [tag1, tag2]
+   author: 
+   comments : 
+   ---
+   ```
 
-### Personalize and Customize
+## Licence
 
-#### _config.yml
-
-Edit `_config.yml` to personalize your site. For documentation, refer to [docs/config.md](https://github.com/longpdo/neumorphism/blob/master/docs/config.md).
-
-#### Github Metadata Plugin
-
-If you want to automatically have your Github repositories pulled for the *Open Source Projects* section, then you also need to authenticate yourself for the Github Metadata plugin to work.
-
-You need to generate a new personal access token on GitHub:
-
-* Go to the [Github Token site](https://github.com/settings/tokens/new)
-* Select the scope `public_repository`, and add a description.
-* Confirm and save the settings. Copy the token you see on the page.
-* Create a `.env` file inside your repository and add your generated `JEKYLL_GITHUB_TOKEN`:
-
-```text
-JEKYLL_GITHUB_TOKEN=0YOUR0GENERATED0TOKEN0
-```
-
-To complete the configuration for the Github Metadata plugin, you also need to change the value of `repository` inside `_config.yml`. After this, you should the Github Metadata plugin should work properly.
-
-For optimal results, you should make sure, that every Github project, you want included on this portfolio, has added following informations on Github:
-
-* Description
-* Homepage link, if there is a live version of it
-* Topics
-
-Example:
-![Github Repository Information Example][github-repo-info]
-
-#### _data/*.yml
-
-Edit files inside `_data` to add information to the portfolio. For documentation, refer to [docs/data.md](https://github.com/longpdo/neumorphism/blob/master/docs/data.md).
-
-#### Particles.js
-
-Edit `assets/particles.json` to customize the landing page backgorund animation. For more information, refer to [this](https://github.com/VincentGarreau/particles.js/#options).
-
-<!-- CONTRIBUTING -->
-
-## Contributing
-
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<!-- LICENSE -->
-
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
-<!-- ACKNOWLEDGEMENTS -->
-
-## Acknowledgements
-
-* [Font Awesome](https://fontawesome.com/)
-* [Normalize.css](https://necolas.github.io/normalize.css/)
-* Based Preloader on [Codrin Pavel's](https://codepen.io/zerospree/pen/aCjAz) version
-* Typing Carousel by [Gregory Schier](https://codepen.io/gschier/pen/jkivt)
-* Social Button Animation by [Stéphane Lyver](https://codepen.io/wouwi/pen/Lwrmi)
-* Adapted [Damian Jankowski's](https://codepen.io/dolaron/pen/rNadmOE) color palette for the neumorphism design
-* Based Timeline on [Krishna Babu's](https://codepen.io/krishnab/pen/OPwqbW) version
-
-<!-- MARKDOWN LINKS & IMAGES -->
-
-[product-screenshot]: https://raw.githubusercontent.com/longpdo/neumorphism/master/docs/screenshot.gif
-[github-repo-info]: https://raw.githubusercontent.com/longpdo/neumorphism/master/docs/github-repo-info.png
+The theme is available as open source under the terms of the [MIT Licence](https://opensource.org/licenses/MIT).

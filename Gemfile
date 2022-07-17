@@ -1,8 +1,13 @@
+# frozen_string_literal: true
 source "https://rubygems.org"
+gemspec
 
-gem "dotenv"
-gem "github-pages"
-gem "jekyll"
-gem "jekyll-github-metadata"
+gem "webrick"
+gem "kramdown-parser-gfm"
 
-gem "webrick", "~> 1.7"
+group :jekyll_plugins do
+  gem "jekyll-email-protect"
+  gem "jekyll-scholar"
+  gem "jekyll-paginate"
+  gem "jekyll-seo-tag"
+end
