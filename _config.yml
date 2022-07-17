@@ -1,6 +1,5 @@
 # Site Settings
-baseurl: ""
-url: "navskh.github.io"
+baseurl: "/Grape-Academic-Theme"
 
 # Blog Setting
 blog: True
@@ -42,8 +41,7 @@ paginate_path: "blog/page:num"
 sass:
   sass_dir: _sass
   style: :compressed
-plugins: ['jekyll-paginate', 'jekyll-scholar', 'jekyll-seo-tag', 'jekyll-sitemap', 'jekyll-gist', 'jekyll-feed', 'jemoji', 'jekyll-include-cache']
-
+plugins: ['jekyll-paginate', 'jekyll/scholar', 'jekyll-seo-tag']
 bootstrap:
   assets: true
 
