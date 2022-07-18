@@ -1,3 +1,6 @@
+# exec cmd
+bundle exec jekyll serve
+
 # Grape-Academic-Theme
 
 <a href="https://jekyll-themes.com">

@@ -9,24 +9,24 @@ blog: True
 lang: en
 
 # Search engine optimization settings
-title: Grape Academic Theme
-tagline: A jekyll theme for academic portfolios
-description: The demonstration page for the Grape Academic Theme, a jekyll theme for academic portfolios based on the Grape Theme.
-author: Christoph Jabs (chrjabs)
+title: Young's Blog
+tagline: Young's Page as Portfolio
+description: The demonstration page for the Young's skill, project, blog
+author: Young(navskh)
 twitter:
-  username: chrjabs
+  username: navskh
   card: A jekyll theme for academic portfolios
 logo: /assets/img/smile.png
 social:
-  name: Christoph Jabs
+  name: Young Sung
   links:
-    - https://twitter.com/chrjabs
-    - https://github.com/chrjabs
+    - https://twitter.com/NavskhYoung
+    - https://github.com/navskh
 locale: en_GB
 
 # Page Settings
 theme_settings:
-  title: Grape Academic Theme
+  title: 영훈 성의 포트폴리오
 
   experience_title: EXPERIENCE
   interests_title: RESEARCH INTERESTS
@@ -56,6 +56,12 @@ scholar:
   first_name: [Myself, M.]
   sort_by: year,month
   order: descending,ascending
+
+# markdown setting
+markdown: kramdown
+kramdown: 
+  input: GFM
+  highlighter: rouge 
 
 filtered_bibtex_keywords: [abbr, abstract, arxiv, bibtex_show, html, pdf, selected, supp, blog, code, poster, slides, website] # Filter out certain bibtex entry keywords used internally from the bib output
 

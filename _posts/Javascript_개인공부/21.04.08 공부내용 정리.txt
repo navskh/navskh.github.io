@@ -1,0 +1,545 @@
+<21.04.08>
+CHAPTER 2 브라우저: 문서, 이벤트, 인터페이스
+[문서]
+1. 스타일과 클래스
+  스타일 적용방법
+  1) CSS에 클래스를 만들고, 요소에 <div class="...">처럼 클래스 추가하기
+  2) <div style="...">처럼 프로퍼티를 style에 바로 써주기
+  자바스크립트를 사용하면 클래스와 style 프로퍼티 둘 다를 수정할 수 있음.
+
+  - className과 classList
+  class는 클래스 만들 때 쓰는 예약어이므로 class 이름을 가져오고 싶을 때는 className을 쓴다. (지금은 class를 써도 가능하다 한다.)
+  class 속성값 전체를 바꾸는 게 아니라. 클래스 하나만 추가하거나 제거하고 싶은 경우에 elem.classList 라는 프로퍼티를 사용한다.
+  
+  classList 에는 add/remove/toggle이 구현되어 있다.
+  * elem.classList.add/remove("class") – class를 추가하거나 제거
+  * elem.classList.toggle("class") – class가 존재할 경우 class를 제거하고, 그렇지 않은 경우엔 추가
+  * elem.classList.contains("class") – class 존재 여부에 따라 true/false를 반환
+
+  classList는 이터러블 객체이기 때문에 for..of 를 통해 모든 클래스 요소를 나열할 수 있다.
+
+  - 요소의 스타일
+  elem.style 은 속성 "style"에 쓰인 값에 대응되는 객체이다. 
+  elem.style.width = "100px" 는 style 속성값을 설정한 예이다.
+
+  - style 프로퍼티 재지정
+  elem.style.display = "none" 를 적용했다가 다시 해제하고 싶을 땐 delete를 쓰는게 아니라
+  elem.style.display = "" 와 같이 빈문자열을 할당해주어야한다.
+
+  div.style.cssText=`color: red !important;
+  background-color: yellow;
+  width: 100px;
+  text-align: center;`;
+  이런 식으로 cssText를 사용하면 문자열 전체를 지정할 수 있다.
+
+  - 단위에 주의하기
+  10px과 10은 다르다.
+
+  - getComputedStyle로 계산된 스타일 얻기
+  style 프로퍼티 만으로는 CSS 파일에서 가져오는 값을 읽지는 못함.
+  getComputedStyle(element, [pseudo])
+  * element : 값을 읽을 요소
+  * pseudo : 의사요소가 필요한 경우 입력한다는데 뭔지 모르겠음..
+
+  현재 들어있는 스타일 정보를 그대로 반환하게 됨.
+  let computedStyle = getComputedStyle(document.body);
+  이런식으로 받아온 후
+  computedStyle.marginTop 을 출력하면 반환됨
+
+2. 요소 사이즈와 스크롤
+  요소의 너비, 높이 관련 프로퍼티 지원
+  - offsetParent와 offsetLeft, offsetTop
+  * 가장 바깥에 있는 기하 프로퍼티
+  * offset은 요소가 화면에서 차지하는 영역 전체 크기를 나타냄, 요소의 너비와 높이에 패딩, 스크롤바, 테두리를 합친 크기임
+
+  offsetParent는 가장 가까운 조상요소 반환 다음과 같음.
+  1) CSS position 프로퍼티가 absolute나 relative, fixed, sticky인 가장 가까운 조상 요소
+  2) <td>나 <th>, 혹은 <table>
+  3) <body>
+
+  - offsetWidth와 offsetHeight
+  가장 바깥부분에 차지하는 너비, 높이 정보
+
+  - clientTop과 clientLeft
+  테두리 요소. 본문과 전체 창 사이의 테두리 높이, 너비를 나타냄
+
+  - clientWidth와 clientHeight
+  테두리 안영역의 사이즈 정보
+  clientWidth와 clientHeight 값은 padding까지 계산하여 더해준 값이다.
+
+  - scrollWidth와 scrollHeight
+  clientWidth와 clientHeight과 유사하나 스크롤바에 의해 감춰진 전체 영역의 길이, 높이를 나타낸다.
+  // 콘텐츠가 차지하는 높이만큼 요소 높이를 늘림
+  element.style.height = `${element.scrollHeight}px`;
+  이런식으로 해서 버튼을 만들어 더보기 하면 스크롤바가 삭제되고 아래 창이 추가되게끔 구현도 가능하다.
+
+  - scrollLeft와 scrollTop
+  위의 scroll 길이, 너비에서 가려진만큼의 값임.
+  그러므로 가리울 길이를 지정하여 버튼을 클릭시 스크롤 내리는 코딩도 가능하다.
+
+  - CSS를 사용해 너비와 높이를 얻지 말아라.
+  getComputedStyle 사용하지 말것.
+  왜?
+  CSS라는 애가 그 안에 속성이 여러가지의 경우의 수로 계산되어지고 혹은 결과 값이 AUTO로 지정되어 반환되는 경우 정밀 계산이 어렵기 때문이다.
+
+3. 브라우저 창 사이즈와 스크롤
+  - 브라우저 창의 너비와 높이
+  document.documentElement 의 clientWidth와 clientHeight를 사용하면 현재 브라우저의 창을 알 수 있다.
+
+  - 문서의 너비와 높이
+  let scrollHeight = Math.max(
+    document.body.scrollHeight, document.documentElement.scrollHeight,
+    document.body.offsetHeight, document.documentElement.offsetHeight,
+    document.body.clientHeight, document.documentElement.clientHeight
+  );
+  위 여섯개의 값중 최댓값이 문서의 실제 높이이다.
+  왜 그런지는 알려고 하지 말란다. 그리 논리적인 이유가 아니란다.
+
+  - scrollTo, scrollBy로 스크롤 상태 변경하기
+    * scrollBy(x,y) 메서드. 현재 포지션 기준으로 그만큼 조정해줌
+    예를들어 scrollBy(0,10)이면 10px 만큼 아래로 움직여줌
+    * scrollTo(pageX,pageY) 메서드는 절대 좌표를 기준으로 스크롤 상태를 변경해줌
+    그래서 scrollTo(0,0)을 호출하면 처음 상태로 되돌릴 수 있음 - "처음으로" 버튼 동작
+
+  - scrollIntoView
+  elem.scrollIntoView() 를 호출하는데 
+  안의 인수 값이 true 인경우 해당 엘리먼트가 맨 위 끝에 닿도록 스크롤을 내린다.
+  false인 경우 해당 엘리먼트가 맨 아래 끝에 닿도록 스크롤을 올린다.
+
+  - 스크롤 막기
+  스크롤을 고정해야하는 경우 : 반드시 전달해야하는 중요한 메세지를 화면에 띄우고 스크롤을 움직여 다른 콘텐츠 보지 못하게 만드는 것.
+
+  document.body.style.overflow = "hidden" 을 사용하면 스크롤바가 고정이 됨.
+  document.body.style.overflow = "" 로 다시 해제할 수 있음
+
+  그런데 이럴 경우 스크롤바가 사라져서 그 콘텐츠 내용의 사이즈에도 영향을 준다.
+  clientWidth를 맞춰줘서 보정해주는 것이 좋다. 혹은 padding 값을 주든지
+
+4. 좌표
+  요소를 움직이겠다면 좌표에 익숙해져라.
+  좌표체계는 크게 두가지
+  1) window 기준
+    window 상단/ 왼쪽 모서리에서부터 계산함.
+    clientX/clientY 로 표시함
+  2) document 기준
+    document 최상단에서 position:absolute 를 쓴것처럼
+    document 상단/ 왼쪽 모서리에서부터 계산함.
+    pageX/pageY 로 표시함
+
+  * 만약 스크롤을 움직인다 했을 때,
+    윈도우 기준좌표(clientX, clientY)는 바뀌게 되고
+    document 기준좌표(pageX, pageY) 는 문서의 가리워진 부분을 포함하여 계산된 좌표이기 때문에 안바뀌게 된다.
+
+  - getBoundingClientRect 로 요소 좌표 얻기
+    버튼이 하나 있다할 때
+    해당 엘리먼트를 감쌀 수 있는 가장 작은 네모칸을 생각해보면
+    그 네모에 대한 기준좌표를 DOMRect 클래스의 객체로 반환한다는 뜻이다.
+    다음과 같은 프로퍼티를 사용한다.
+    * x,y : x/y 좌표
+    * width/height : 네모영역의 너비/높이 
+    * top/bottom : 상단, 하단 모서리의 y좌표
+    * left/ right : 좌/우 모서리의 x좌표
+
+    위 프로퍼티는 갱신이 가능하다.
+
+  - elementFromPoint(x,y)
+    해당 (x,y) 좌표에 있는 엘리먼트의 가장 최하위 태그를 가져온다.
+    윈도우 밖으로 나간 경우 null을 반환한다.
+
+  - 고정(fixed) 위치 지정에 사용하기
+    메세지 요소가 position:fixed 라면 페이지가 스크롤되어도 해당 메세지는 그 값 그대로 고정된다.
+    이를 스크롤에 따라 바꿔주고 싶으면 position:absolute를 사용하고 document 기반의 좌표를 명시해야한다.
+
+    function getCoords(elem) {
+      let box = elem.getBoundingClientRect();
+    
+      return {
+        top: box.top + window.pageYOffset,
+        right: box.right + window.pageXOffset,
+        bottom: box.bottom + window.pageYOffset,
+        left: box.left + window.pageXOffset
+      };
+    }
+
+    이런식으로 함수를 만들어주어 윈도우 기반 좌표에서 스크롤된 위치를 더해주어야 한다.
+    이제 position:absolute를 쓸 수 있다.
+
+[이벤트 기초]
+1. 브라우저 이벤트 소개
+  이벤트란 무언가 일어났다는 신호이다.
+
+  - 마우스 이벤트
+    * click – 요소 위에서 마우스 왼쪽 버튼을 눌렀을 때(터치스크린이 있는 장치에선 탭 했을 때) 발생.
+    * contextmenu – 요소 위에서 마우스 오른쪽 버튼을 눌렀을 때 발생.
+    * mouseover와 mouseout – 마우스 커서를 요소 위로 움직였을 때, 커서가 요소 밖으로  움직였을 때 발생.
+    * mousedown과 mouseup – 요소 위에서 마우스 왼쪽 버튼을 누르고 있을 때, 마우스   버튼을 뗄 때 발생.
+   * mousemove – 마우스를 움직일 때 발생.
+
+  - 폼 요소 이벤트
+    * submit – 사용자가 <form>을 제출할 때 발생.
+    * focus – 사용자가 <input>과 같은 요소에 포커스 할 때 발생.
+
+  - 키보드 이벤트
+    * keydown과 keyup – 사용자가 키보드 버튼을 누르거나 뗄 때 발생합니다.
+
+  - 문서 이벤트
+    * DOMContentLoaded – HTML이 전부 로드 및 처리되어 DOM 생성이 완료되었을 때  발생.
+
+  - CSS 이벤트
+    * transitionend – CSS 애니메이션이 종료되었을 때 발생.
+
+  - 이벤트 핸들러
+    이벤트가 발생했을 때 핸들러를 할당해주면 어떻게 반응할지를 코딩할 수 있다.
+
+    1) HTML 속성
+    HTML 안의 on<event> 속성에 할당 가능
+    onclick = "alert(클릭!)"
+    // 대소문자 구분 안함
+
+    2) DOM 프로퍼티
+    DOM 프로퍼티.ON<EVENT> 를 사용한다.
+    elem.onclick = function() {
+      alert(감사합니다.);
+    };
+
+  - this로 요소에 접근하기
+    <button onclick="alert(this.innerHTML)">클릭해 주세요.</button>
+    위와 같이 사용한 경우
+    this는 버튼 자체가 되기 때문에 버튼의 
+
+  - 실수하지 말기
+    * 괄호 붙이지 말기
+      // 올바른 방법
+      button.onclick = sayThanks;
+      // 틀린 방법
+      button.onclick = sayThanks();
+      핸들러 뒤에 ()를 붙이지 말아야 한다.
+    * setAttribute 로 핸들러 할당 안됨
+    * DOM 프로퍼티로 핸들러 할당할 때는 대소문자 구분함.
+
+  - addEventListener
+    하나의 이벤트에 복수의 핸들러 할당 못하는 문제 있음.
+    버튼 클릭했을 때
+    - 버튼 강조
+    - 메세지 출력
+    두개를 해주고 싶다면
+    addEventListener를 사용할 것
+    * 문법
+      element.addEventListener(event, handler, [options]);
+    * event
+      이벤트 이름(예: "click")
+    * handler
+      핸들러 함수
+    * options
+      아래 프로퍼티를 갖는 객체
+      ** once: true이면 이벤트가 트리거 될 때 리스너가 자동으로 삭제됨.
+      ** capture: 어느 단계에서 이벤트를 다뤄야 하는지를 알려주는 프로퍼티
+      ** passive: true이면 리스너에서 지정한 함수가 preventDefault()를 호출안함
+
+    * 핸들러를 삭제하고 싶다면 removeEventListner 를 사용한다.
+
+  - 이벤트 객체
+    이벤트를 제대로 다루려면 어떤 일이 일어났는지 상세하게 알아야함.
+    이벤트 객체를 가져와서 해당 이벤트에 대한 정보를 다룰 수 있다.
+
+    <input type="button" value="클릭해 주세요." id="elem">
+    <script>
+      elem.onclick = function(event) {
+        // 이벤트 타입과 요소, 클릭 이벤트가 발생한 좌표를 보여줌
+        alert(event.type + " 이벤트가 " + event.currentTarget + "에서 발생했습니다.");
+        alert("이벤트가 발생한 곳의 좌표는 " + event.clientX + ":" + event.clientY +"입니다.");
+      };
+    </script>
+
+    * event.type
+      이벤트 타입, 위 예시에선 "click".
+    * event.currentTarget
+      이벤트를 처리하는 요소. 
+    * event.clientX / event.clientY
+      포인터 관련 이벤트에서, 커서의 상대 좌표
+
+  - 객체 형태의 핸들러와 handleEvent
+    addEventListener를 사용하면 객체를 이벤트 핸들러로 할당하는 것이 가능하다.
+    * 이벤트가 발생하면 객체에 구현한 hadleEvent 메서드가 호출된다.
+    let obj = {
+      handleEvent(event) {
+        alert(event.type + " 이벤트가 " + event.currentTarget + "에서 발생했습니다.");
+      }
+    };
+
+    위의 handleEvent(event) 안의 코드가 실행되는데
+    switch case 구문을 사용하면 event.type 별로 나눠서 구현할 수도 있을 것임
+
+    또 다른 방법으로 핸들러 객체에 onClick() 같은 메서드를 만들어주면 클릭 이벤트 시 해당 메서드를 실행해준다.
+
+2. 버블링과 캡처링
+  버블링의 원리는 간단하다.
+  한 요소에 이벤트가 발생하면
+  할당된 핸들러가 동작 > 부모 핸들러가 동작 > 최상단까지 진행
+  아래 코드 참고
+  <style>
+  body * {
+    margin: 10px;
+    border: 1px solid blue;
+  }
+  </style>
+
+  <form onclick="alert(form)">FORM
+    <div onclick="alert(div)">DIV
+      <p onclick="alert(p)">P</p>
+    </div>
+  </form>
+
+  p > div > form 순으로 on click 이 실행됨
+  ---------------------------
+  | form                    |
+  |  --------------------   |
+  | | div                |  |
+  | |  -------------     |  |
+  | | | p           |    |  |
+  | | |             |    |  |
+  | | |             |    |  |
+  | | |             |    |  |
+  | | |             |    |  |
+  | | |             |    |  |
+  | |  -------------     |  |
+  |  --------------------   |
+  ---------------------------
+  
+  이벤트가 제일 깊은 곳에서 부터 부모 요소로 거슬러 올라가며 발생되는 모양이 물 속 거품과 같아서 버블링이라 한다.
+
+  - event.target
+    * event.target은 실제 이벤트가 시작된 타깃요소
+    * this는 현재요소 현재 실행중인 핸들러가 할당된 요소
+  위의 그림과 같이 중첩된 경우
+  p를 클릭했다고 하면
+  this는 <form> 이 되고
+  event.target 은 <p> 가 되는 것이다.
+
+  - 버블링 중단하기
+    event.stopPropagation()을 사용하면 버블링을 멈출 수 있다.
+    <body onclick="alert(`버블링은 여기까지 도달하지 못합니다.`)">
+      <button onclick="event.stopPropagation()">클릭해 주세요.</button> 
+    </body>
+
+    위의 경우 body의 onclick은 실행되지 못한다.
+    근데 정말 막아야하는 순간에만 막으라함.
+
+  - 캡처링
+    표준 "DOM 이벤트"에서 정의한 이벤트 흐름 3단계
+    1) 캡처링 단계 - 이벤트가 하위 요소로 전파하는 단계
+    2) 타깃 단계 - 이벤트가 실제 타깃 요소로 전달되는 단계
+    3) 버블링 단계 - 이벤트가 상위 요소로 전파되는 단계
+
+    근데 캡처링 단계를 이용하는 경우는 흔치 않다.
+    캡처링 단계에서 이벤트를 잡아내려면
+    addEventListener의 capture 옵션을 true로 만들워주어야한다.
+    elem.addEventListener(..., {capture: true})
+    // 아니면, 아래 같이 {capture: true} 대신, true를 써줘도 됩니다.
+    elem.addEventListener(..., true)
+
+    elem.addEventListener("click", e => alert(`캡쳐링: ${elem.tagName}`), true);
+    이렇게 붙여주면 캡처링에서 잡아준다.
+
+    단계별로 보면.
+    1) HTML → BODY → FORM → DIV (캡처링 단계, 첫 번째 리스너)
+    2) P (타깃 단계, 캡쳐링과 버블링 둘 다에 리스너를 설정했기 때문에 두 번 호출.)
+    3) DIV → FORM → BODY → HTML (버블링 단계, 두 번째 리스너)
+
+3. 이벤트 위임
+  캡처링과 버블링을 활용한 이벤트 위임
+  공통 조상에 할당한 핸들러에서 event.target을 이용하면 이벤트가 어디서 발생했는지 알수 있다.
+
+  table.onclick = function(event) {
+    let td = event.target.closest(td); // (1)
+    if (!td) return; // (2)
+    if (!table.contains(td)) return; // (3)
+    highlight(td); // (4)
+  };
+
+  예외사항까지 처리한 코드가 위와 같다
+  코드의 동작은 특정 표 안에서 어떤 칸을 클릭했을 때 그 칸을 강조표시해주고 싶다는 것이다.
+  (1) 그 칸이 td 안에 중첩된 태그가 있을 수 있으므로 가장 가까운 부모 태그를 지정하여 td 안에 있는게 맞는지를 알아낸다.
+  (2) 만약 td 가 아니면 그대로 반환
+  (3) td가 특정 표 밖의 td면 그대로 반환
+  (4) 그게 아니라면 그 칸을 highlight 칠해준다.
+
+  - 이벤트 위임 활용하기
+  저장,불러오기,검색하기 등의 버튼이 있을 때 
+  각 버튼마다 핸들러를 추가하여 기능을 구현하는 것을 생각할 것이다.
+  그런데 이런 방법도 있다.
+
+  <div id="menu">
+    <button data-action="save">저장하기</button>
+    <button data-action="load">불러오기</button>
+    <button data-action="search">검색하기</button>
+  </div>
+
+  <script>
+    class Menu {
+      constructor(elem) {
+        this._elem = elem;
+        elem.onclick = this.onClick.bind(this); // (*)
+      }
+      save() {alert(저장하기);}
+      load() {alert(불러오기);}
+      search() {alert(검색하기);}
+      onClick(event) {
+        let action = event.target.dataset.action;
+        if (action) {
+          this[action]();
+        }
+      };
+    }
+    new Menu(menu);
+  </script>
+
+  menu에만 핸들러를 설정해서 data-action으로 클릭된 버튼을 찾아 해당 기능을 호출한다.
+
+  - 행동패턴
+    다음 두 부분으로 구성된다.
+    1) 요소의 행동을 설명하는 커스텀 속성을 요소에 추가. ex) data-counter
+    2) 문서 전체를 감지하는 핸들러가 이벤트를 추적
+    (document.addEventListener). 
+    이벤트가 발생하면 1에서 추가한 속성이 있는 요소에서 작업을 수행.
+
+    > 카운터 구현하기
+    > 토글러 구현하기
+
+4. 브라우저 기본 동작
+  발생 즉시 특정 동작 자동 수행
+  // 링크 url 클릭 시 자동 이동
+  // 폼 전송 버튼 클릭 시 자동으로 서버에 전송
+  // 글자 블록설정
+
+  - 브라우저 기본동작 막기
+    방법은 두가지 있는데
+    1) event 객체의 event.preventDefault() 메서드를 사용
+    2) on<event>를 사용해 할당한 경우 false를 반환.
+
+    <a href="/" onclick="return false">이곳</a>
+    <a href="/" onclick="event.preventDefault()">이곳을</a> 클릭해주세요.
+    위의 상황의 경우 둘다 url로 이동하지 않는다.
+  
+  - 메뉴 구현하기
+    메뉴 구현할 때 a href를 사용하되 css를 입혀 버튼형으로 만든경우
+    진짜 버튼처럼 쓰고 싶다고 한다면
+    onclick 핸들러에 return false를 끝에 붙이고 그 안에 코드 구현해주면 된다.
+
+  - addEventListener의 passive 옵션
+    addEventListener의 passive: true 옵션은 브라우저에게 preventDefault()를 호출하지 않겠다고 알리는 역할을 한다.
+
+    모바일 기기에서 터치하고 움직이는 touchmove와 같은 이벤트에 대해 기본적으로 스크롤링을 발생시키는데. 핸들러의 preventDefault()를 사용하면 스크롤링을 막을 수 있다.
+
+  - event.defaultPrevented
+    event.defaultPrevented 값이 true 이면 기본동작을 막음
+    <button oncontextmenu="alert(커스텀 메뉴가 뜨네요!); return false">
+    여기서 마우스 오른쪽 버튼을 클릭해보세요.
+    </button>    
+    위의 코드에서 return false 를 추가해줌으로 
+    마우스 우클릭 시 생기는 contextmenu를 무시하고 alert창을 띄우는 것이다.
+
+    다음 경우를 보면
+
+    //버블링_막음
+    <p>문서 레벨 컨텍스트 메뉴</p>
+    <button id="elem">버튼 레벨 컨텍스트 메뉴(event.stopPropagation를 사용해 버그 수정)</button>
+    <script>
+    elem.oncontextmenu = function(event) {
+      event.preventDefault();
+      event.stopPropagation(); //stopPropagation()을_사용하여_버블링_막음
+      alert("버튼 컨텍스트 메뉴");
+    };
+    document.oncontextmenu = function(event) {
+      event.preventDefault();
+      alert("문서 컨텍스트 메뉴");
+    };
+    </script>
+
+    //defaultPrevented를_사용하여_버블링_막음
+    <p>문서 레벨 컨텍스트 메뉴(event.defaultPrevented를 확인함)</p>
+    <button id="elem">버튼 레벨 컨텍스트 메뉴</button>
+    <script>
+      elem.oncontextmenu = function(event) {
+        event.preventDefault();
+        alert("버튼 컨텍스트 메뉴");
+      };
+
+      document.oncontextmenu = function(event) {
+        if (event.defaultPrevented) return; //여기서_버블링_막아준다.
+        event.preventDefault();
+        alert("문서 컨텍스트 메뉴");
+      };
+    </script>
+
+5. 커스텀 이벤트 디스패치
+  이벤트를 직접 만들수도 있다.
+  그래픽 컴포넌트를 만들 때 사용된다.
+
+  - Event 생성자
+  let event = new Event(type[, options]);
+  인수정보
+  * type – 이벤트 타입을 나타내는 문자열로 "click"같은 내장 이벤트, "my-event" 같은 커스텀 이벤트가 올 수있음.
+  * options – 두 개의 선택 프로퍼티가 있는 객체가 온다.
+    ** bubbles: true/false – true인 경우 이벤트가 버블링 됨
+    ** cancelable: true/false – true인 경우 브라우저 기본 동작’이 실행되지 않음. 
+    두 프로퍼티는 기본적으로 {bubbles: false, cancelable: false}처럼 false
+
+  - dispatchEvent
+    이벤트를 만들었다면 처음에 elem.dispatchEvent(event)를 사용하여 일단 실행시켜줘야한다.
+
+  - MouseEvent, KeyboardEvent 등의 다양한 이벤트
+    * UIEvent 
+    * FocusEvent
+    * MouseEvent
+    * WheelEvent
+    * KeyboardEvent
+    위와 같은 이벤트들은 new Event를 사용하면 안되고
+    해당 이벤트 명칭을 가져와서 사용해줘야 이벤트 동작할 때 제대로 먹는다.
+
+  - 커스텀 이벤트
+    new CustomEvent 로 커스텀 이벤트를 만들 수 있으며
+    new Event와 다른 점은
+    CustomEvent의 두번째 인수엔 객체가 들어갈 수 있는데 
+    detail 이라는 프로퍼티를 추가하여 관련 정보를 이벤트에 전달할 수 있다는 것이다.
+
+  - event.preventDefault()
+    브라우저 이벤트 대다수는 '기본 동작’과 함께 실행. 
+    
+    커스텀 이벤트에는 기본 동작이 없음. 
+    커스텀 이벤트를 만들고 디스패칭 해 주는 코드에 원하는 동작을 넣으면, 기본 동작을 설정해줄 수 있음.
+    
+    코드 예시) 커스텀 이벤트 기본동작 설정과 기본동작 막기
+    <pre id="rabbit">
+      |\   /|
+       \|_|/
+       /. .\
+      =\_Y_/=
+       {>o<}
+    </pre>
+    <button onclick="hide()">hide()를 호출해 토끼 숨기기</button>
+
+    <script>
+      function hide() {
+        let event = new CustomEvent("hide", {
+          cancelable: true // cancelable를 true로 설정하지 않으면 preventDefault가 동작하지 않습니다.
+        });
+        if (!rabbit.dispatchEvent(event)) {
+          alert('기본 동작이 핸들러에 의해 취소되었습니다.');
+        } else {
+          rabbit.hidden = true; // 기본동작은 토끼 숨기기임
+        }
+      }
+
+      rabbit.addEventListener('hide', function(event) {
+        if (confirm("preventDefault를 호출하시겠습니까?")) {
+          event.preventDefault();
+        }
+      });
+    </script>
+
+    - 이벤트 안 이벤트
+    이벤트는 큐에서 처리. 
+        
+    이벤트 안에 다른 이벤트가 있는 경우
+    이벤트 안에 있는 이벤트는 즉시 처리. 

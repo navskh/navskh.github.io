@@ -1,0 +1,246 @@
+<21.03.26>
+[객체]
+객체를 만드는 방법
+  let user = new Object(); // '객체 생성자' 문법
+  let user = {};  // '객체 리터럴' 문법
+0. 리터럴과 프로퍼티 
+  let user = {     // 객체
+    name: "John",  // 키: "name",  값: "John"
+    age: 30        // 키: "age", 값: 30
+  };
+  user 객체에 name, age 프로퍼티 두개가 존재한다.
+  - 만약 두개의 단어 이상의 조합으로 이름을 만들 시 따옴표로 묶어줘야한다.
+  - 프로퍼티의 끝은 쉼표로 끝난다.
+  - user.name 과 같이 .으로 점표기법으로 프로퍼티 값을 읽어오는데
+    "like bird" 와 같이 두개의 단어가 묶여있는 프로퍼티의 경우 점표기법으로 읽어올 수 없음
+    그럴 땐 대괄호 표기법을 사용하면 됨 user.["like birds"]; ※ 따옴표의 종류는 상관 없다.
+  - 대괄호 표기법으로는 대괄호 안에 변수를 지정한 후 변수를 얼마든지 유연하게 변경할 수 있으나
+  - 점표기법에서는 유연한 사용이 안된다.
+
+  - 계산된 프로퍼티
+  let bag = {
+    [fruit]: 5, // 변수 fruit에서 프로퍼티 이름을 동적으로 받아 옵니다.
+  };
+  대괄호로 묶여있는 프로퍼티를 계산된 프로퍼티라고 부른다.
+
+  - 단축 프로퍼티
+  function makeUser(name, age) {
+    return {
+      name: name,
+      age: age,
+      // ...등등
+    };
+  }
+  let user = makeUser("John", 30);
+  alert(user.name); // John
+  name:name 대신 name만 적어주어도 프로퍼티를 설정할 수 있음
+
+  - 객체 프로퍼티는 예약어 상관 없이 지정할 수 있다.
+  - in 연산자
+  "key" in object
+  key 라는 프로퍼티가 object 안에 있냐는 것이다.
+
+  - for in 반복문
+  for (key in object) {
+    // 각 프로퍼티 키(key)를 이용하여 본문(body)을 실행합니다.
+  }
+  모든 프로퍼티를 순회하며 하나씩 찍어줌.
+
+  let user = {
+    name: "John",
+    age: 30,
+    isAdmin: true
+  };
+  
+  for (let key in user) {
+    // 키
+    alert( key );  // name, age, isAdmin
+    // 키에 해당하는 값
+    alert( user[key] ); // John, 30, true
+  }
+  맨처음 key 값을 출력 그다음 그에 해당하는 값을 출력
+  
+  - 객체 정렬은 정수프로퍼티의 경우 숫자의 오름차순으로 정렬되고
+  그 외의 경우에는 객체에 추가한 순서대로 정렬된다.
+  
+
+1. 참조에 의한 객체 복사
+  변수는 메모리에 그대로 값을 저장하는데
+  객체는 메모리 내 어딘가에 저장 되고 그 주소 값을 저장한다.
+  let user = {name : "John"};
+  let admin = user; // 참조값을 복사함
+  위의 경우 user, admin 은 해당 객체의 주소값을 같이 가리킴
+  * admin에서 프로퍼티 수정하면 user에도 수정 됨.
+
+2. 객체 복사, 병합과 Object.assign
+  1) for.. in 으로 복사
+  기존 객체 user가 있고
+  하나의 객체 clone을 만들었을 때
+  for...in 구문으로 user의 모든 프로퍼티를 돌면서 복사하게 만들면
+  clone에는 값이 복사된 것이지 주소값이 바뀐것이 아니기 때문에
+  clone의 값을 변경한 경우 user의 값은 변경되지 않음.
+  2) Object.assign(dest, [src1, src2, src3 ...])
+  dest : 목표로 하는 객체
+  src1,..N : 복사하고자 하는 객체
+  객체 복사지만, 객체 삽입과 같은 느낌이다.
+  또, 복사하는 객체 안에 기존 객체에 프로퍼티의 이름과 같은 이름이 있을 경우 덮어 쓰기 된다.
+  let clone = Object.assign({}, user);
+  위와 같이 선언하면 user의 객체를 복사할 수 있다.
+
+3. 중첩 객체와 복사
+  중첩 객체란 객체 안에 또 객체 형식으로 포함되는 경우
+  사용법은 아래와 같다
+  let user = {
+    name: "John",
+    sizes: {
+      height: 182,
+      width: 50
+    }
+  };
+
+  alert( user.sizes.height ); // 182
+
+  let clone = Object.assign({},user);
+  이렇게 한 경우
+  user의 name 프로퍼티는 값이 복사되지만
+  size 프로퍼티는 객체형식이기 때문에 참조값이 복사되므로
+  size 안의 height를 수정한 경우 clone과 user에서 같은 값을 찍게 된다.
+
+4. 가비지 컬렉션
+  객체의 경우는 참조 방식으로 불러오기 때문에
+  만약 참조를 끊어버리면 해당 메모리에 저장된 값은 지워진다.
+  let user = {
+    name: "John"
+  };
+  user라는 객체가 있을 때
+  user = null;
+  이런식으로 만들어 버리면
+  user는 존재하지만 user안에 name 값은 참조 받지 않기 때문에 지워진다.
+
+  여러가지 경우에 따른 설명이 나와있는데 핵심은 효율적으로 메모리를 사용한다는 것이다.
+
+5. 자유로운 this의 사용법
+  let user = { name: "John" };
+  let admin = { name: "Admin" };
+
+  function sayHi() {
+    alert( this.name );
+  }
+
+  // 별개의 객체에서 동일한 함수를 사용함
+  user.f = sayHi;
+  admin.f = sayHi;
+
+  // 'this'는 '점(.) 앞의' 객체를 참조하기 때문에
+  // this 값이 달라짐
+  user.f(); // John  (this == user)
+  admin.f(); // Admin  (this == admin)
+
+  admin['f'](); // Admin (점과 대괄호는 동일하게 동작함)
+
+  위와 같이 함수 sayHi는 어떤 객체에도 속하지 않았으나 this를 사용할 수 있다.
+  이는 this를 통해서 객체에 속해서 사용되는 경우 해당 객체를 가르키기 위함이다.
+  물론 객체 없이 this를 사용한 함수는 실행되지 않는다.
+
+6. 생성자
+  new를 사용하면 아래와 같이 쓸 수 있다.
+
+  function User(name) {
+    this.name = name;
+    this.isAdmin = false;
+  }
+
+  let user = new User("Jack");
+
+  new User를 쓰면 User 안에 this를 쓴 것처럼 적용되어 user를 객체로 만들어준다.
+
+7. 옵셔널 체이닝
+  객체안에 프로퍼티가 없을 때 ?.로 호출하면 에러가 안뜨고 undefined로 호출됨
+  ex) user?.address
+  에러페이지가 안뜨므로 훨씬 안전하게 설계가 가능하다.
+  delete 와 같이 사용하여 해당 객체가 존재할 경우 삭제하는 것도 가능하다.
+
+8. 심볼의 경우
+  Symbol() 을 사용하여 변수에 할당하면 해당 속성값을 부여하는 느낌이지만
+  실제 값이 바뀌는 것은 없다.
+  이를 객체에도 할당하여 설정할 수 있는데
+  이는 디버깅 할 때 유용하게 사용된다.
+  Symbol.for()을 사용하여 같은 값의 심볼을 할당할 수 있고
+  Symbol.keyFor()를 사용하여 해당 변수의 심볼값을 가져올 수 있다.
+
+9. 객체를 원시형으로 변환하기.
+  - 객체의 형변환
+  문자열 기대하는 연산 시 
+  alert()안에 쓰거나, 호출할 때 쓸 때 : string
+  수학 연산을 적용하려 할 때 
+  Number 안에 쓴 경우, 수학연산, 비교연산 시 : number
+  확실치 않을 때 : default
+
+  - Symbol.toPrimitive
+  원시형 변환 메서드임.
+  객체를 불러올 때 string으로 불러올 때는 string 값을 출력해주고
+  객체를  number로 불러올 때는 number를 출력해줌.
+
+  - toString, valueOf
+  객체를 string 형태로 불러올 때 toString을 객체 안에 선언하여 조작할 수 있음
+  valueOf는 객체를 number 형태로 불러올 때 조작할 수 있음
+
+[자료구조와 자료형]
+1. 원시 값의 메서드
+  - toUpperClass() 를 사용하면 변수의 이름으로 객체를 만든 후 내부 프로세스를 돌려 소문자를 대문자로 바꿔준다.
+
+2. 숫자형
+  - billion은 bn으로 사용할 수 있다.
+  - 1e9 를 쓰면 10억을 의미한다.
+  - 0x를 붙여 16진수를 나타냄
+  - 0b를 붙이면 2진수, 0o를 붙이면 8진수를 나타냄.
+  - toString(x) x진법으로 반환한 후 이를 string으로 바꿈
+  - Math.floor(버림), Math.ceil(올림), Math.round(반올림), Math.trunc(IE)
+  - sum = 0.1 + 0.2를 하면 0.3 이 안됨 숫자를 저장하는 방식에서 이상이 있기 때문
+  - isNaN(NaN인지 아닌지 테스트 함)과 isFinite(NaN/Infitinty/-Infinity 가 아닌 경우 true를 반환 함)
+
+3. 문자열
+  문자열을 교체하기 위해선...
+
+  let str = 'Hi';
+
+  str = 'h' + str[1]; // 문자열 전체를 교체함
+
+  alert( str ); // hi
+
+  Hi에서 첫글자만 교체할 수 없고
+  아예 문자열을 싹다 교체해야한다.
+
+  - IndexOf 를 사용하여 부분 문자열을 찾을 수 있다.
+  - indexof('문자',숫자) 문자를 찾는데, 숫자를 가진 순서부터 찾는다.
+  - if 문에 indexof를 사용하여 비교할 경우 0과 비교하면 안되고 0부터 해당 문자가 시작될 수 있으므로... -1과 비교해야한다.
+  - 위와 같은 경우 비트NOT 연산자를 사용하면 좋을 수 있다.
+  alert( ~2 ); // -3, -(2+1)과 같음
+  alert( ~1 ); // -2, -(1+1)과 같음
+  alert( ~0 ); // -1, -(0+1)과 같음
+  alert( ~-1 ); // 0, -(-1+1)과 같음
+  - includes()를 사용하여 해당 문자열에 문자가 포함되는지 확인
+  - startWith()를 사용하여 해당 문자열이 문자로 시작하는지 확인
+  - endWith()을 사용하여 해당 문자열이 문자로 끝나는지 확인
+  - slice(시작, 끝) 문자열의 중간만 뽑아올 수 있음
+  - substr(시작, 길이) 위와 다른 점은 길이를 입력한다는 것
+  - str.codePointAt(pos)를 사용하여 해당 문자를 코드로 바꿔준다.
+
+4. 배열
+  - 배열안에는 어떤 자료형도 올수 있다 심지어 객체까지도
+  - push : 배열 끝에 요소 추가
+  - pop : 배열 끝에 요소를 빼고 해당 요소 삭제
+  - shift : 배열 앞에 있는 요소 빼고 해당 요소 삭제
+  - unshfit :  배열 앞에 요소 추가
+
+  push와 unshfit의 경우는 여러개를 한꺼번에 넣을 수 있다.
+  push/pop은 빠르지만 shift와 unshift는 느리다. 맨 앞을 수정하면 다 옮겨야하니까
+  
+  배열을 순회하는 방법. 
+  - for ( 배열.length ) 를 사용하여 순회한다.
+  - for ( of ) 를 사용하면 배열 전체를 순회한다. for in 도 사용가능
+
+  .length는 배열의 길이를 알려주는데, arr.length의 값을 변경함으로써 값을 자르거나 혹은 정의 되지 않은 값으로 늘릴 수 있다.
+
+  new Array() 문법을 사용하여 배열 생성 가능
+  배열을 toString() 으로 호출하면 요소를 ,로 구분한 문자열을 출력한다

@@ -1,0 +1,183 @@
+[jQuery 교육]
+1. CORE
+  jQuery = $
+  같음
+
+2. Selector
+  그냥 사용하다보면 알게 된다.
+  : hide, visible, even, order 뭐 이런 것들
+  css selector를 공부하는게 오히려 더 나을 수 있다.
+  . 은 클래스 선택자
+  # 은 아이디 선택자
+  attr 
+
+  그룹선택자
+  A, B : A또는 B
+  
+  자손 
+  자식
+  자식 결합자를 잘 써야 함.
+  
+  gt는 뭐 초과
+  has 셀렉터 : td 안에 span 태그를 가지고 있다 td:has(span)
+  hidden 숨겨져 있는 것들
+
+  input 셀렉터 : input textarea select 3개 모두 리턴
+  lt : 미만
+  not 셀렉터 : 안가지고 있는 거 찾을 때.
+  nth-child() 연산이 가능하다. 
+
+  jQuery는 모든 것이 배열로 리턴된다.
+  셀렉터가 가장 기본이고 가장 중요하다.
+
+3. Trversing (선택한 애를 가지고 위아래로 옮기거나 뭐 그런거)
+  추가 삭제의 개념
+  append 는 아니고 add
+  0개든 한개든 두개든 가지고 있는 엘리먼트에 추가로 더해줌.
+  addBack
+  show find addBack 
+  find에서 찾아온 객체에 그 상위 엘리먼트들을 추가한다.
+  예)
+  article 기준으로
+  h1 을 찾아
+  전부다 가져와서 한꺼번에 조작할 수 있음
+
+  어렵다는 것은 여러줄로 할 수 있는 작업을 한 줄로 할 수있는 경우
+  그걸봐도 잘 모르는 경우 가독성이 떨어져서 그러나 사용하다보면
+  이렇게 사용할 수 있다는 것이다.
+
+  children()
+  엘리먼트의 자식들을 모둘 리턴해준다.
+
+  closest()
+  내가 가진 엘리먼트 
+  $('aritcle').closest('div')
+  뭐 이렇게 하면 그 div를 찾아줌
+
+  content 를 통해 그 안의 내용물을 다룰 수 있다.
+  ex) 
+  생성툴이 있고 생성툴 에디터를 통해서 편집을 할 수가 있다.
+  위치 지점을 대문자 두개로 처리한다.
+  그 객체의 text 를 찾아서
+  content를 가져와서 text를 잘라버리고
+  그 대문자 두개를 다른 걸로 치환해버림
+
+  end() 를 써서 메서드 체이닝을 멈추고 그 전의 반환 값을 가져옴.
+  굳이 이렇게 쓰는 이유는 jQuery 객체가 이중으로 안생기기 때문에 용량을 줄일 수 있다.
+
+  eq() 몇번째 엘리먼트
+  even()은 짝수
+  filter() 어려운거, map()
+  find() 엘리먼트 찾아줌.
+  first() 첫번째
+  has() 와 :has 는 같음
+  is() 이게 속성으로 체크드 되어 있는가. ( 단일 검사 true false )
+  offsetParent() 실제로 위치된 곳의 좌표상의 상위. 실제 태그의 상위가 아니라. 
+    drag & drop으로 위치 이동한 경우 거기 위치의 parent를 찾아줌
+  parent() 단일 부모
+  parents() 부모들
+  
+  자 filter, map, slice 
+  Array.prototype에 있는 함수랑 동일한 역할을 한다고 보면 된다.
+  배열은 아니지만 배열처럼 구현할 수 있게 
+  filter는 true로 입력되면 배열 만들어주는 것.
+  
+4. Manipulation (조작) 선택한 애를 가지고 조작하는 것
+  after() 선택한 엘리먼트의 동일한 레벨의 형제 노드를 만드는 것
+  append() 자식으로 맨 뒤에 추가
+  appendTo() 나를 어디에 자식으로 추가해라.
+  attr() 어트리뷰트. attr(name) 게터, attr(name,value) 세터
+  before() after 에서 이전 형제 라인
+  clone()  복사 true라고 받으면 이벤트 다 가져오고, 데이터 객체도 가져옴
+  css() 스타일 추가 가능. object 형식으로 넘길 수 있다. 
+  detach() remove() 랑 다름. 이건 떼어내서 잠깐 보관함.
+  empty() 안에 있는 애들을 다 비워버림. 나는 없어지지 않고, 내 자신들이 없어짐
+  height() 엘리먼트의 높이 가져옴. 계산된 값을 리턴함. 브라우저별로 달라짐(마진 패딩 계산법이 다름)
+  html() 순수 html 가지고 옴
+  innerHeight() include, 패딩, 제외하고 딱 내부의 높이
+  innerWidth() 내부의 넓이
+
+  offset() 내가 위치한 좌표를 가져옴. 상위 엘리먼트에 의해 결정된 상대 좌표
+  position() 은 절대 좌표
+  이런 것들은 라비르러리 쓸 것.
+
+  outerHeight()
+  outerWidth() 패딩, 보더, 마진까지 포함해서 높이, 너비 
+
+  prepend() 는 append와 반대, 자식을 다 밀어버리고 첫번째로 넣음
+
+  prop() 어트리뷰트랑 비슷한 작업을 함. 
+    attr 해봐서 안되면 prop를 쓰면 되고, prop로 안되면 attr 써보고 해봐라
+  remove() 엘리먼트 아예 삭제
+
+  text()로 하면 html 값들 다 지어지고 연속된 text 반환
+  toggleClass() 그 클래스가 있으면 지우고 없으면 넣고
+  unwrap() 그 뒤에 들어가는 태그로 벗겨냄
+  wrap() 은 씌우는 것
+
+  val() input 태그에 많이 쓰임. selectbox에 val을 써도, radio에 써도, textarea에도 다 됨
+   * textarea 같은 경우는 text() 로도 입력되니 그 정도만 알고 넘어가기
+
+5. Event
+  이게 셀렉터 다음으로 두번째로 많이씀
+  bind() 
+    bind(eventType[, eventData], handler)
+  hover 마우스 올라가 있을 때
+  keydown,
+  keypress
+  keyup
+    키 이벤트 삼총사
+  mousedown
+  mouseenter
+  mouseleave (드래그 & 드랍에서 많이 쓴단다)
+
+  off/ on 
+    a name이라는 속성을 누르면 클릭 이벤트 발생하도록 동적으로 할당한다는 것.
+    off는 꺼버림
+  resize() 윈도우가 리사이즈 될 때마다 트리거 시킴
+  옛날에 이렇기 많이 썼고 요즘은 반응형이기 때문에 css 레벨에서 적용함.
+
+  trigger() 이벤트도 실행시키고 이벤트 함수도 실행됨
+  체크박스 체크/해제 가능
+  triggerhandler() 트리거에 있는 함수만 실행시킴
+
+6. Effects
+  UI 적인 측면이 강함
+  animated() 는 문법이 정말 신기함.
+
+7. 기타
+  data() 객체나 값이나 하는 것들을 elemet에 집어넣고 빼고 할 수 있음 얘는 브라우저가 돌아갈 때만 유효한 값이 됨.
+  get() jQUery로 셀렉트 한 애들을 엘리먼트 형태로 가지고 오고 싶다. 할 때 씀
+  param() serialize 해주는 역할
+  size() length와 같은 개념임 
+  toArray() 배열처럼 동작하긴 하지만 실제 배열로 바꿔주는 애임
+
+8. utitlities
+  clearQueue()
+  dequeque() 큐에 이벤트를 넣고 빼고 할 때 사용
+  
+  어떤 엘리먼트에 이벤트가 뭐가 됐는지 모르겠다 하면
+  .event() 이런식으로 입력해보면 리턴이 됨.
+  그런데 어느 순간 버전부터, jquery.data().event 라고 하면 나옴
+
+  grep() array에 쓰는 함수인데, filter와 비슷함.
+
+  noop() no operation 그냥 함수 function(){}를 지원해줌
+
+[Javascript 이모저모]
+  프론트엔드 개발자 
+  - 디자이너 엔지니어 간의 시각적 언어 확립
+  이런 것들 사전에 협의가 분명하게 되어야 함.
+  - 뭐가 어떻게 바뀌고 그러면 어떻게 동작하는지 명확해야 함
+  
+  sequelize.js
+  어떤 데이터베이스간에 호환성을 제공해주는 orm 을 통해서 db 제어
+
+
+  nodejs 쪽은
+  db와 암호화같은 것들
+  대용량 통신 부분들 노하우가 없음.
+  그러나 앞으로 닷넷 보다는 nodejs로 바꿀 예정임
+
+  pims 상황판 업무 요청, 공지사항
+  
