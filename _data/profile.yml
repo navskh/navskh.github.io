@@ -10,11 +10,22 @@ experience:
     end: 
     experience : JINHAK, Service Develop Team
 interests:
-  - Interest 1
-  - Interest 2
+  - TypeScript
+  - Nest.js
+  - Vue3
+  - Flutter
+
 skills: 
-  - skill: HTML5 & CSS
+  - skill: HTML5 & CSS & JS
+    value: 100  # Percent value
+  - skill: jQuery
+    value: 100  # Percent value
+  - skill: VUE.js
+    value: 90  # Percent value
+  - skill: Node.js
     value: 85  # Percent value
+  - skill: TypeScript
+    value: 50  # Percent value
 social:
   email:  # Full email address, e.g. "sample@google.com"
   orcid: 
