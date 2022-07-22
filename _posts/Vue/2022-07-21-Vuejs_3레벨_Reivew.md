@@ -2,7 +2,7 @@
 layout: post
 title: Vue 인프런 강의_by 성영훈
 subtitle : Vue_Review
-tags: [Study, Vue]
+tags: [Study, Vue, Review]
 author: Young
 comments : True
 ---
