@@ -1,42 +1,32 @@
 - project :
     print: True # If 'False' is selected, it will not be displayed in 'home.html > aside > .proj-content'. 
     modal: True # If 'True' is selected, modal can open in 'portfolio.html'. 
-    url: https://github.com/chrjabs/Grape-Academic-Theme # Full URL
+    url: https://github.com/navskh/AboutConfPosition # Full URL
     image:
-      path: "portfolio.png" # path: assets/project/
+      path: "main.png" # path: assets/project/
       alt: "A screenshot of the portfolio page"
-    date: 05/2022 &ndash; Developing
-    title: Grape-Theme
-    summary: Academic portfolio jekyll theme.
-    description: A modification of the Grape-Theme for jekyll to be useable as an academic portfolio.
+    date: 07/2022 &ndash; Developing
+    title: 박람회 배치도 크롤링
+    summary: 입시박람회 배치도가 나오면 알림주는 프로그램.
+    description: 입시박람회 배치도가 나오면 알림주는 프로그램.
     contents:
-        - title: 1. Portfolio Page
+        - title: 1. 화면
           image:
-            path: portfolio.png
-            alt: "A screenshot of the portfolio page"
-          description: <li>Concise portfolio page</li>
-            <li>Recent publications</li>
-            <li>Projects</li>
-        - title: 2. Optional Blog Functionality
-          image:
-            path: home.png
-            alt: "A screenshot of the blog page"
-          description: <li>Responsive Layout</li>
-            <li>Tags</li> 
-            <li>Pagination</li>
-        - title: 3. Tags Page
-          image:
-            path: tags.png
-            alt: "A screenshot of the tags page"
-          description: <li>Responsive Layout</li> 
-            <li>Tags</li> 
-
-- project:
-    print: True # If 'False' is selected, it will not be displayed in 'home.html > aside > .proj-content'. 
-    modal: True # If 'True' is selected, modal can open in 'portfolio.html'. 
-    url:  # Full URL
-    image: # path: assets/project/
-    date: 06/2019 &ndash; Developing
-    title: Dummy project
-    summary: This is a Dummy
-    description:  
+            path: main.png
+            alt: "Main page"
+        - title: 2. 목적
+          description: 입시박람회를 방문할 때, 배치도가 나왔는지 항상 웹페이지에 들어가서 확인이 가능하였음. 매번 그러기가 귀찮았기에 본 프로그램을 돌려 배치도가 나왔을 때, 알림을 띄워주는 프로그램을 작성하였음.
+        - title: 3. 사용방법
+          description: <li>'confposition.exe' 파일을 실행한다`</li> 
+                      <li>실행했을 때 먼저 한번 검색하여 박람회 배치도가 나왔는지 확인해준다.</li>
+                      <li>5분마다 검색 버튼을 누르면 5분에 한번씩 검색을 해준다.(검색 중 로딩바가 뜸)</li>
+                      <li>멈춤을 누르면 검색을 멈춤.</li>
+# - project:
+#     print: True # If 'False' is selected, it will not be displayed in 'home.html > aside > .proj-content'. 
+#     modal: True # If 'True' is selected, modal can open in 'portfolio.html'. 
+#     url:  # Full URL
+#     image: # path: assets/project/
+#     date: 06/2019 &ndash; Developing
+#     title: Dummy project
+#     summary: This is a Dummy
+#     description:  
