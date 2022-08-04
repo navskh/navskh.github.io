@@ -8,3 +8,9 @@
     title: A second presentation
     event: Another conference
     date: 03/2022
+- presentation:
+    title: ESLint, Prettier, Vue3 에 적용하기
+    event: Team Meeting
+    date: 08/2022
+    comment: ESLint 적용법 정리
+    slides: ../../assets/pdfjs/web/viewer.html?file=ESLintnFormatter.pdf # potential link to slides
