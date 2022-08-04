@@ -78,10 +78,12 @@ module.exports = {
 
 ---
 ## Vue Style-Guide 
-```"plugin:vue/vue3-essential",```
+``` "plugin:vue/vue3-essential", ```
 
-vue에는 style-guide가 있음 특정 패턴으로 개발하면 굉장히 유용하다.
-<img src=../../assets/img/vue%20%EC%8A%A4%ED%83%80%EC%9D%BC%20%EA%B0%80%EC%9D%B4%EB%93%9C.png style='width:550px'>
+vue에는 style-guide가 있음 특정 패턴으로 개발하면 굉장히 유용하다.  
+
+![이미지](../../assets/img/vue%20%EC%8A%A4%ED%83%80%EC%9D%BC%20%EA%B0%80%EC%9D%B4%EB%93%9C.png)
+
 [참조링크](https://kr.vuejs.org/v2/style-guide/index.html)
 
 1. 컴포넌트 이름을 사용할 땐 합성어로 사용하라.
@@ -90,14 +92,14 @@ vue에는 style-guide가 있음 특정 패턴으로 개발하면 굉장히 유�
 ---
 ## ESLint Rules 
 
-```"eslint:recommended",```
+``` "eslint:recommended", ```
 
 ESLint의 추천 항목을 자동으로 검사해라.
 <img src=../../assets/img/ESlint%ED%99%94%EB%A9%B4.png style="width:500px">
 
 [ESLint Rules 관련 정보](https://eslint.org/docs/latest/rules/)
 
-```"@vue/eslint-config-prettier",```
+``` "@vue/eslint-config-prettier", ```
 
 충돌 방지 옵션임.
 
@@ -133,7 +135,7 @@ rules: {
     }]
 ```
 
-```"prettier/prettier" : ["error", {}]```
+``` "prettier/prettier" : ["error", {}] ```
 이 안에 Rule 들을 적용하면 
 Prettier에 의해 저장 시 알아서 Rule에 맞게 변환되어 저장될 수 있도록 만들 수 있음.
 
@@ -147,7 +149,7 @@ ESLint를 검색한 후 Validate를 찾아서 Settings.json을 클릭한다.
 
 ---
 ## ESLint Settins.josn 수정하기
-- ```"eslint.validate"``` : eslint 활성화 되는 언어 지정 가능
+- ``` "eslint.validate" ``` : eslint 활성화 되는 언어 지정 가능
 
 ```json
 //settins.json
