@@ -1,13 +1,9 @@
 - presentation:
-    title: A nice presentation
-    event: Fancy conference
-    date: 05/2022
-    comment: This is some comment text that can do _Markdown_
-    slides: https://www.google.com # potential link to slides
-- presentation:
-    title: A second presentation
-    event: Another conference
-    date: 03/2022
+    title: 상담앱 일정정리
+    event: Sprint Meeting
+    date: 08/2022
+    comment: 상담앱 일정정리
+    slides: ../../assets/pdfjs/web/viewer.html?file=ConsultingDevelopPlan.pdf # potential link to slides
 - presentation:
     title: ESLint, Prettier, Vue3 에 적용하기
     event: Team Meeting
