@@ -21,6 +21,9 @@
         <a href="{{ '/tags' | relative_url }}">
           <li class="btn-nav">Tags</li>
         </a>
+        <a href="{{ '/plan' | relative_url }}">
+          <li class="btn-nav">Plan</li>
+        </a>
         {% endif %}
         <!-- publications -->
         {% when 'publications' %}
@@ -37,6 +40,9 @@
         </a>
         <a href="{{ '/tags' | relative_url }}">
           <li class="btn-nav">Tags</li>
+        </a>
+        <a href="{{ '/plan' | relative_url }}">
+          <li class="btn-nav">Plan</li>
         </a>
         {% endif %}
         <!-- presentations -->
@@ -55,6 +61,9 @@
         <a href="{{ '/tags' | relative_url }}">
           <li class="btn-nav">Tags</li>
         </a>
+        <a href="{{ '/plan' | relative_url }}">
+          <li class="btn-nav">Plan</li>
+        </a>
         {% endif %}
         <!-- blog -->
         {% when 'blog' %}
@@ -71,6 +80,9 @@
         <li class="current">Blog</li>
         <a href="{{ '/tags' | relative_url }}">
           <li class="btn-nav">Tags</li>
+        </a>
+        <a href="{{ '/plan' | relative_url }}">
+          <li class="btn-nav">Plan</li>
         </a>
         {% endif %}
         <!-- tags -->
@@ -89,6 +101,29 @@
           <li class="btn-nav">Blog</li>
         </a>
         <li class="current">Tags</li>
+        <a href="{{ '/plan' | relative_url }}">
+          <li class="btn-nav">Plan</li>
+        </a>
+        {% endif %}
+        {% when 'plan' %}
+        <!-- others -->
+        <a href="{{ '/' | relative_url }}">
+          <li class="btn-nav">Home</li>
+        </a>
+        <a href="{{ '/publications' | relative_url }}">
+          <li class="btn-nav">Publications</li>
+        </a>
+        <a href="{{ '/presentations' | relative_url }}">
+          <li class="btn-nav">Presentations</li>
+        </a>
+        {% if site.blog %}
+        <a href="{{ '/blog' | relative_url }}">
+          <li class="current btn-nav">Blog</li>
+        </a>
+        <a href="{{ '/tags' | relative_url }}">
+          <li class="btn-nav">Tags</li>
+        </a>
+        <li class="current">Plan</li>
         {% endif %}
         {% else %}
         <!-- others -->
@@ -107,6 +142,9 @@
         </a>
         <a href="{{ '/tags' | relative_url }}">
           <li class="btn-nav">Tags</li>
+        </a>
+        <a href="{{ '/plan' | relative_url }}">
+          <li class="btn-nav">Plan</li>
         </a>
         {% endif %}
         {% endcase %}
