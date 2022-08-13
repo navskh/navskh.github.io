@@ -4,13 +4,14 @@ url: "navskh.github.io"
 
 # Blog Setting
 blog: True
+dolist_days: 5
 
 # Language of the website
 lang: en
 
 # Search engine optimization settings
 title: Young's Blog
-tagline: Young's Page as Portfolio
+tagline: Young's Devlog
 description: The demonstration page for the Young's skill, project, blog
 author: Young(navskh)
 twitter:
@@ -26,7 +27,7 @@ locale: en_GB
 
 # Page Settings
 theme_settings:
-  title: 영훈 성의 포트폴리오
+  title: Young's Devlog
 
   experience_title: EXPERIENCE
   interests_title: STUDY INTERESTS
@@ -37,6 +38,11 @@ theme_settings:
 # Pagination
 paginate: 5
 paginate_path: "blog/page:num"
+
+# Collection
+collections:
+  dolist: 
+    output: true
 
 # Build Settings
 sass:

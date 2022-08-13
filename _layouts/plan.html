@@ -1,0 +1,81 @@
+---
+layout: page
+---
+<div id="plan">
+  <!-- Responsive Header -->
+  <section id="header-content">
+    <h1>{{ page.title }}</h1>
+  </section>
+  <section class="bg"></section>
+  <div class="row">
+    <!-- Aside Navigation  -->
+    <aside id="aside" class="col-md-4">
+      {% include aside.html %}
+    </aside>
+    <!-- Post List -->
+    <section id="dolists" class="col-md-8">
+      <div class="highlighter-rouge" id="LimitDays" limit_day="{{ site.dolist_days }}"> 
+        <img src="../../assets/img/3248142.png" style="width: 15px; height: 15px;"/>
+        Dolist 는 {{ site.dolist_days }} 일전 까지만 기록됩니다. 
+      </div>
+      {{ site.dolist }}
+    </section>
+    <div id="top" class="top-btn" onclick="moveTop()">
+      <i class="fas fa-chevron-up"></i>
+    </div>
+  </div>
+</div>
+<style>
+.box,
+.box_done,
+.task-list-item {
+  list-style-type: none;
+}
+
+.task-list-item input {
+  font-size: 16px;
+  margin: 0 01em 0.25em -1.6em;
+  vertical-align: middle;
+}
+
+</style>
+<script>
+  var lastScrollTop = 0;
+  window.onscroll = function () {
+    var st = document.body.scrollTop || document.documentElement.scrollTop;
+    if (st > 250) {
+      document.getElementById("top").style.display = "block"
+      if (st > lastScrollTop) {
+        document.getElementById("top").style.opacity = 0
+      } else {
+        document.getElementById("top").style.opacity = 1
+      }
+    } else {
+      document.getElementById("top").style.opacity = 0
+      if (st > lastScrollTop) {
+        document.getElementById("top").style.display = "none"
+      }
+    }
+    lastScrollTop = st <= 0 ? 0 : st;
+  }
+  function moveTop() {
+    document.body.scrollTop = 0
+    document.documentElement.scrollTop = 0
+  }
+
+  function compareFiveDaysAgo(page_Date,limit_Day) {
+    var now = new Date();	// 현재 날짜 및 시간    console.log("현재 : ", now);
+    var limitdayAgo = new Date(now.setDate(now.getDate() - limit_Day));	// 어제
+
+    var pagedate = new Date(page_Date);
+
+    if(limitdayAgo > pagedate) return false;
+    else return true;
+  }
+
+  $("div[name=dolist]").each(function(){
+    var pagedate = $(this).attr('page_date');
+    var limit = $('#LimitDays').attr('limit_day');
+    if(!compareFiveDaysAgo(pagedate, limit)) $(this).remove();
+  });
+</script>
