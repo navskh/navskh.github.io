@@ -78,5 +78,28 @@ layout: page
     if(!compareFiveDaysAgo(pagedate, limit)) $(this).remove();
   });
 
-  $('[type=checkbox]').attr('disabled',false);
+  $('[type=checkbox]').each(function(idx, ele){
+    $(ele).attr('disabled', false);
+    $(ele).attr('id', 'checkbox' + idx);
+  })
+
+  if(localStorage.getItem('dolist') != null){
+    var dolist = localStorage.getItem("dolist");
+    var dolistArr = JSON.parse(dolist);
+    typeof(dolistArr);
+    dolistArr.forEach(element => {
+      $('#checkbox'+element).attr('checked', true);
+    });
+  }
+
+  $('[type="checkbox"]').click(function(){
+    var thisCheck = [];
+    $('[type=checkbox]:checked').each((idx,ele)=>{
+      thisCheck.push($(ele).attr('id').replace('checkbox',''));
+    })
+
+    if(thisCheck.length != null){
+      localStorage.setItem("dolist", JSON.stringify(thisCheck));
+    }
+  })
 </script>
