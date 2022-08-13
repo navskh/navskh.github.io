@@ -78,4 +78,6 @@ layout: page
     var limit = $('#LimitDays').attr('limit_day');
     if(!compareFiveDaysAgo(pagedate, limit)) $(this).remove();
   });
+
+  $('[type=checkbox]').attr('disabled',false);
 </script>
