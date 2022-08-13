@@ -14,6 +14,7 @@ layout: page
     </aside>
     <!-- Post List -->
     <section id="dolists" class="col-md-8">
+      <div class="highlighter-alarm" id="version" version="{{ site.dolist_version }}"></div>
       <div class="highlighter-rouge" id="LimitDays" limit_day="{{ site.dolist_days }}"> 
         <img src="../../assets/img/3248142.png" style="width: 15px; height: 15px;"/>
         Dolist 는 {{ site.dolist_days }} 일전 까지만 기록됩니다. 
@@ -102,4 +103,25 @@ layout: page
       localStorage.setItem("dolist", JSON.stringify(thisCheck));
     }
   })
+  
+  console.log($('#version').attr('version'), localStorage.getItem('dolist_version'));
+  if($('#version').attr('version') != localStorage.getItem('dolist_version')){
+    localStorage.clear();
+    localStorage.setItem('dolist_version', $('#version').attr('version'));
+    $('#version').text('버전이 업데이트 되어서 체크박스 상태가 관리자 설정값으로 바뀝니다. 현재 버전 : ' + $('#version').attr('version'));
+    versionUpdateAlert($('#version').attr('version'));
+  }
+
+  function versionUpdateAlert(version){
+		Swal.fire({
+        title: '버전이 업데이트 되었습니다.',
+        text: "버전 : " + version,
+        icon: 'warning',
+        // showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '확인',
+        // cancelButtonText: '취소'
+		});
+	}
 </script>
