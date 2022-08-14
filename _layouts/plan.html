@@ -19,6 +19,19 @@ layout: page
         <img src="../../assets/img/3248142.png" style="width: 15px; height: 15px;"/>
         Dolist 는 {{ site.dolist_days }} 일전 까지만 기록됩니다. 
       </div>
+      <div>
+        <p class="title">Dolist 달성율</p>
+        <ul class="skill-list">
+          <li class="skill">
+            <p class="name"></p>
+            <div class="progress">
+              <div id="progress-bar" class="progress-bar" style="width:0%">
+                <div id="progress-value" class="progress-value">0%</div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
       {{ site.dolist }}
     </section>
     <div id="top" class="top-btn" onclick="moveTop()">
@@ -26,19 +39,7 @@ layout: page
     </div>
   </div>
 </div>
-<style>
-.box,
-.box_done,
-.task-list-item {
-  list-style-type: none;
-}
 
-.task-list-item input {
-  font-size: 16px;
-  vertical-align: middle;
-}
-
-</style>
 <script>
   var lastScrollTop = 0;
   window.onscroll = function () {
@@ -70,46 +71,7 @@ layout: page
     var pagedate = new Date(page_Date);
 
     if(limitdayAgo > pagedate) return false;
-    else return true;
-  }
-
-  $("div[name=dolist]").each(function(){
-    var pagedate = $(this).attr('page_date');
-    var limit = $('#LimitDays').attr('limit_day');
-    if(!compareFiveDaysAgo(pagedate, limit)) $(this).remove();
-  });
-
-  $('[type=checkbox]').each(function(idx, ele){
-    $(ele).attr('disabled', false);
-    $(ele).attr('id', 'checkbox' + idx);
-  })
-
-  if(localStorage.getItem('dolist') != null){
-    var dolist = localStorage.getItem("dolist");
-    var dolistArr = JSON.parse(dolist);
-    typeof(dolistArr);
-    dolistArr.forEach(element => {
-      $('#checkbox'+element).attr('checked', true);
-    });
-  }
-
-  $('[type="checkbox"]').click(function(){
-    var thisCheck = [];
-    $('[type=checkbox]:checked').each((idx,ele)=>{
-      thisCheck.push($(ele).attr('id').replace('checkbox',''));
-    })
-
-    if(thisCheck.length != null){
-      localStorage.setItem("dolist", JSON.stringify(thisCheck));
-    }
-  })
-  
-  console.log($('#version').attr('version'), localStorage.getItem('dolist_version'));
-  if($('#version').attr('version') != localStorage.getItem('dolist_version')){
-    localStorage.clear();
-    localStorage.setItem('dolist_version', $('#version').attr('version'));
-    $('#version').text('버전이 업데이트 되어서 체크박스 상태가 관리자 설정값으로 바뀝니다. 현재 버전 : ' + $('#version').attr('version'));
-    versionUpdateAlert($('#version').attr('version'));
+    else return true
   }
 
   function versionUpdateAlert(version){
@@ -124,4 +86,122 @@ layout: page
         // cancelButtonText: '취소'
 		});
 	}
+
+  function progressbarShow(){
+    var totalCnt = $('[type=checkbox]').length;
+    var completeCnt = $('[type=checkbox]:checked').length;
+
+    var process = (((completeCnt/totalCnt) * 100).toFixed(1));
+
+    $('#progress-bar').css('width', process+'%');
+    $('#progress-value').text(process+'%');
+
+  }
+
+
+  $(document).ready(function() {
+    $("div[name=dolist]").each(function(){
+      var pagedate = $(this).attr('page_date');
+      var limit = $('#LimitDays').attr('limit_day');
+      if(!compareFiveDaysAgo(pagedate, limit)) $(this).remove();
+    });
+
+    $('[type=checkbox]').each(function(idx, ele){
+      $(ele).attr('disabled', false);
+      $(ele).attr('id', 'checkbox' + idx);
+    })
+
+    if(localStorage.getItem('dolist') != null){
+      var dolist = localStorage.getItem("dolist");
+      var dolistArr = JSON.parse(dolist);
+      typeof(dolistArr);
+      dolistArr.forEach(element => {
+        $('#checkbox'+element).attr('checked', true);
+      });
+    }
+
+    $('[type="checkbox"]').click(function(){
+      var thisCheck = [];
+      $('[type=checkbox]:checked').each((idx,ele)=>{
+        thisCheck.push($(ele).attr('id').replace('checkbox',''));
+      })
+
+      if(thisCheck.length != null){
+        localStorage.setItem("dolist", JSON.stringify(thisCheck));
+      }
+    })
+    
+    if($('#version').attr('version') != localStorage.getItem('dolist_version')){
+      localStorage.clear();
+      localStorage.setItem('dolist_version', $('#version').attr('version'));
+      $('#version').text('버전이 업데이트 되어서 체크박스 상태가 초기화됩니다. 현재 버전 : ' + $('#version').attr('version'));
+      versionUpdateAlert($('#version').attr('version'));
+    }
+
+    progressbarShow();
+  }); 
+
 </script>
+
+<style>
+  .box,
+  .box_done,
+  .task-list-item {
+    list-style-type: none;
+  }
+  
+  .task-list-item input {
+    font-size: 16px;
+    vertical-align: middle;
+  }
+  .skills { padding-top: 35px; }
+  
+  ul.skill-list { 
+          margin-top: 20px;
+          margin-left: 3%;
+          list-style-type: none;
+  }
+  li.skill {
+            margin: 18px auto;
+  }
+  .title{
+    margin-top: 15px;
+    color: #5497A7;
+    font-size: 25px;
+    font-weight: 600;
+  }
+  .name {
+    padding-left: 5px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .progress {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 18px;
+    background-color: rgba(0, 0, 0, 0.08);
+    border-radius: 5px;
+    animation-name: progressAnimation;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    -webkit-animation-name: progressAnimation;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: ease-in-out;
+  }
+  .progress-bar {
+    position: absolute;
+    height: 18px;
+    background-color: #62A8AC;
+  }
+  
+  .progress-value {
+    position: absolute;
+    right: 5px;
+    color: #ddd;
+    font-size: 0.6rem;
+    font-weight: 600;
+    line-height: 1.1rem;
+  }
+  
+  </style>
