@@ -48,8 +48,3 @@ var lastScrollTop = 0;
     })
 
   });
-
-  window.onload = function(){
-    // 실행할 내용
-    progressbarShow();
-  };
