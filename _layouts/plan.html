@@ -1,6 +1,8 @@
 ---
 layout: page
 ---
+{% include scripts/firebase.html %}
+
 <div id="plan">
   <!-- Responsive Header -->
   <section id="header-content">
@@ -32,118 +34,78 @@ layout: page
           </li>
         </ul>
       </div>
-      {{ site.dolist }}
+      <div id="showList">
+        <section class="dolist-header">
+          <h1 class="title">오늘의 Dolist</h1>
+          <p class="subtitle"></p>
+          <p class="meta" id="today">
+            August 13, 2022
+          </p>
+        </section>
+      </div>
+
     </section>
     <div id="top" class="top-btn" onclick="moveTop()">
       <i class="fas fa-chevron-up"></i>
     </div>
+    <a href="#" class="float" id="modal" onclick="showModal()">
+      <i class="fa fa-plus my-float"></i>
+    </a>
+  </div>
+  <div id="dia" class="modal">
+    <article class="modal__article">
+      <h4 class="modal-title">할일 추가하기</h4>
+    </article>
+    <div id="modal_body">
+      <div class="omrs-input-group">
+        <label class="omrs-input-underlined">
+        <input id="category-item" required>
+        <span class="omrs-input-label">Category</span>
+        </label>
+      </div>
+      <div class="omrs-input-group">
+        <label class="omrs-input-underlined">
+          <input id="dolist-item" required>
+          <span class="omrs-input-label">To Do</span>
+        </label>
+      </div>
+    </div>
+      
+    <footer style="margin-top: 4rem;">
+      <center>
+        <a style="cursor:pointer" class="button -close" onclick="closeModal()">close</a>
+        <a style="cursor:pointer" class="button -add" onclick="addToDo()">add</a>
+      </center>
+    </footer>
   </div>
 </div>
 
+{% include scripts/plan_setting.html %}
+
 <script>
-  var lastScrollTop = 0;
-  window.onscroll = function () {
-    var st = document.body.scrollTop || document.documentElement.scrollTop;
-    if (st > 250) {
-      document.getElementById("top").style.display = "block"
-      if (st > lastScrollTop) {
-        document.getElementById("top").style.opacity = 0
-      } else {
-        document.getElementById("top").style.opacity = 1
-      }
-    } else {
-      document.getElementById("top").style.opacity = 0
-      if (st > lastScrollTop) {
-        document.getElementById("top").style.display = "none"
-      }
-    }
-    lastScrollTop = st <= 0 ? 0 : st;
-  }
-  function moveTop() {
-    document.body.scrollTop = 0
-    document.documentElement.scrollTop = 0
+  function showModal() {
+      $("#dia").css('opacity', 1);
+      $("#dia").css('top', '50%');
   }
 
-  function compareFiveDaysAgo(page_Date,limit_Day) {
-    var now = new Date();	// 현재 날짜 및 시간    console.log("현재 : ", now);
-    var limitdayAgo = new Date(now.setDate(now.getDate() - limit_Day));	// 어제
-
-    var pagedate = new Date(page_Date);
-
-    if(limitdayAgo > pagedate) return false;
-    else return true
+  function closeModal() {
+      $("#dia").css('top', '-50%');
+      $("#dia").css('opacity', 0);
   }
-
-  function versionUpdateAlert(version){
-		Swal.fire({
-        title: '버전이 업데이트 되었습니다.',
-        text: "버전 : " + version,
-        icon: 'warning',
-        // showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: '확인',
-        // cancelButtonText: '취소'
-		});
-	}
-
-  function progressbarShow(){
-    var totalCnt = $('[type=checkbox]').length;
-    var completeCnt = $('[type=checkbox]:checked').length;
-
-    var process = (((completeCnt/totalCnt) * 100).toFixed(1));
-
-    $('#progress-bar').css('width', process+'%');
-    $('#progress-value').text(process+'%');
-
-  }
-
-
-  $(document).ready(function() {
-    $("div[name=dolist]").each(function(){
-      var pagedate = $(this).attr('page_date');
-      var limit = $('#LimitDays').attr('limit_day');
-      if(!compareFiveDaysAgo(pagedate, limit)) $(this).remove();
-    });
-
-    $('[type=checkbox]').each(function(idx, ele){
-      $(ele).attr('disabled', false);
-      $(ele).attr('id', 'checkbox' + idx);
-    })
-
-    if(localStorage.getItem('dolist') != null){
-      var dolist = localStorage.getItem("dolist");
-      var dolistArr = JSON.parse(dolist);
-      typeof(dolistArr);
-      dolistArr.forEach(element => {
-        $('#checkbox'+element).attr('checked', true);
-      });
-    }
-
-    $('[type="checkbox"]').click(function(){
-      var thisCheck = [];
-      $('[type=checkbox]:checked').each((idx,ele)=>{
-        thisCheck.push($(ele).attr('id').replace('checkbox',''));
-      })
-
-      if(thisCheck.length != null){
-        localStorage.setItem("dolist", JSON.stringify(thisCheck));
-      }
-    })
-    
-    if($('#version').attr('version') != localStorage.getItem('dolist_version')){
-      localStorage.clear();
-      localStorage.setItem('dolist_version', $('#version').attr('version'));
-      $('#version').text('버전이 업데이트 되어서 체크박스 상태가 초기화됩니다. 현재 버전 : ' + $('#version').attr('version'));
-      versionUpdateAlert($('#version').attr('version'));
-    }
-
-    progressbarShow();
-  }); 
 
 </script>
 
 <style>
+  .delete{
+    text-align: center;
+    box-shadow: 2px 2px 3px #999;
+    background-color: rgb(204, 0, 0);
+    width: 25px;
+    height: 25px;
+    font-size: 15px;
+    color: white !important;
+    border-radius: 5px;
+  }
   .box,
   .box_done,
   .task-list-item {
@@ -204,4 +166,226 @@ layout: page
     line-height: 1.1rem;
   }
   
+  
+  .float{
+    position:fixed;
+    width:60px;
+    height:60px;
+    bottom:40px;
+    right:40px;
+    background-color:#0C9;
+    color:#FFF;
+    border-radius:50px;
+    text-align:center;
+    box-shadow: 2px 2px 3px #999;
+
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+  }
+
+  .float:hover{
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+  }
+
+  .my-float{
+    margin-top:22px;
+  }
+
+  .modal {
+      width: 24rem;
+      height: 24rem;
+      color: #33465E;
+      background-color: white;
+      position: fixed;
+      top: -50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 1rem rgba(black, 0.1);
+      opacity: 0;
+      transition: opacity 550ms ease-in-out;
+      display: block;
+      border: 1px solid #33465E;
+  }
+      
+  article {
+        text-align: center;
+        padding: 1.5rem;
+  }
+  .modal-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  .button {
+      font-weight: bold;
+      color: #fff;
+      padding: 15px 35px;
+      border: 2px solid #fff;
+      transition: all 250ms ease-in-out;
+  }    
+  .button:hover {
+      color: #fff;
+      background-color: #666d7d;
+  }
+      
+  .-close {
+    background-color: #33465E;
+    width: 100%;
+    height: 100%;
+  }
+
+  .-add {
+    background-color: #2f3f8e;
+    width: 100%;
+    height: 100%;
+  }
+/** BEGIN: Non Openmrs CSS **/
+#modal_body{
+  display: flex;
+	align-items: flex-start;
+	justify-content: space-around;
+	border: 1px solid whitesmoke;
+	padding: 21px;
+	border-radius: 4px;
+}
+
+:root {
+	--omrs-color-ink-lowest-contrast: rgba(47, 60, 85, 0.18);
+	--omrs-color-ink-low-contrast: rgba(60, 60, 67, 0.3);
+	--omrs-color-ink-medium-contrast: rgba(19, 19, 21, 0.6);
+	--omrs-color-interaction: #1e4bd1;
+	--omrs-color-interaction-minus-two: rgba(73, 133, 224, 0.12);
+	--omrs-color-danger: #b50706;
+	--omrs-color-bg-low-contrast: #eff1f2;
+	--omrs-color-ink-high-contrast: #121212;
+	--omrs-color-bg-high-contrast: #ffffff;
+	
+}
+/** END: Non Openmrs CSS **/
+div.omrs-input-group {
+  position: relative;
+  width: 20.4375rem;
+}
+
+/* Input*/
+.omrs-input-underlined > input,
+.omrs-input-filled > input {
+	border: none;
+	border-bottom: 0.125rem solid var(--omrs-color-ink-medium-contrast);
+	width: 100%;
+	height: 4rem;
+	font-size: 1.0625rem;
+	padding-left: 0.875rem;
+	line-height: 147.6%;
+	padding-top: 0.825rem;
+	padding-bottom: 0.5rem;
+}
+
+.omrs-input-underlined > input:focus,
+.omrs-input-filled > input:focus {
+	outline: none;
+}
+
+.omrs-input-underlined > .omrs-input-label,
+.omrs-input-filled > .omrs-input-label {
+	position: absolute;
+	top: 2rem;
+	left: 0.875rem;
+	line-height: 147.6%;
+	color: var(--omrs-color-ink-medium-contrast);
+	transition: top .2s;
+}
+
+.omrs-input-underlined > svg,
+.omrs-input-filled > svg {
+	position: absolute;
+	top: 2rem;
+	right: 0.875rem;
+	fill: var(--omrs-color-ink-medium-contrast);
+}
+
+.omrs-input-underlined > .omrs-input-helper,
+.omrs-input-filled > .omrs-input-helper {
+	font-size: 0.9375rem;
+	color: var(--omrs-color-ink-medium-contrast);
+	letter-spacing: 0.0275rem;
+	margin: 0.125rem 0.875rem;
+}
+
+.omrs-input-underlined > input:hover,
+.omrs-input-filled > input:hover {
+	background: var(--omrs-color-interaction-minus-two);
+	border-color: var(--omrs-color-ink-high-contrast);
+}
+
+.omrs-input-underlined > input:focus + .omrs-input-label,
+.omrs-input-underlined > input:valid + .omrs-input-label,
+.omrs-input-filled > input:focus + .omrs-input-label,
+.omrs-input-filled > input:valid + .omrs-input-label {
+	top: 0;
+	font-size: 0.9375rem;
+	margin-bottom: 32px;;
+}
+
+.omrs-input-underlined:not(.omrs-input-danger) > input:focus + .omrs-input-label,
+.omrs-input-filled:not(.omrs-input-danger) > input:focus + .omrs-input-label {
+	color: var(--omrs-color-interaction);
+}
+
+.omrs-input-underlined:not(.omrs-input-danger) > input:focus,
+.omrs-input-filled:not(.omrs-input-danger) > input:focus {
+	border-color: var(--omrs-color-interaction);
+}
+
+.omrs-input-underlined:not(.omrs-input-danger) > input:focus ~ svg,
+.omrs-input-filled:not(.omrs-input-danger) > input:focus ~ svg {
+	fill: var(--omrs-color-ink-high-contrast);
+}
+
+/** DISABLED **/
+
+.omrs-input-underlined > input:disabled {
+	background: var(--omrs-color-bg-low-contrast);
+	cursor: not-allowed;
+}
+
+.omrs-input-underlined > input:disabled + .omrs-input-label,
+.omrs-input-underlined > input:disabled ~ .omrs-input-helper{
+	color: var(--omrs-color-ink-low-contrast);
+}
+
+.omrs-input-underlined > input:disabled ~ svg {
+	fill: var(--omrs-color-ink-low-contrast);
+}
+
+
+/** DANGER **/
+
+.omrs-input-underlined.omrs-input-danger > .omrs-input-label, .omrs-input-underlined.omrs-input-danger > .omrs-input-helper,
+.omrs-input-filled.omrs-input-danger > .omrs-input-label, .omrs-input-filled.omrs-input-danger > .omrs-input-helper{
+	color: var(--omrs-color-danger);
+}
+
+.omrs-input-danger > svg {
+	fill: var(--omrs-color-danger);
+}
+
+.omrs-input-danger > input {
+	border-color: var(--omrs-color-danger);
+}
+
+.omrs-input-underlined > input {
+	background: var(--omrs-color-bg-high-contrast);
+}
+.omrs-input-filled > input {
+	background: var(--omrs-color-bg-low-contrast);
+}
   </style>
