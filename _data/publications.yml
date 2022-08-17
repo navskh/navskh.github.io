@@ -1,0 +1,18 @@
+- presentation:
+    title: 상담앱 일정정리
+    event: Sprint Meeting
+    date: 08/2022
+    comment: 상담앱 일정정리
+    slides: ../../assets/pdfjs/web/viewer.html?file=ConsultingDevelopPlan.pdf # potential link to slides
+- presentation:
+    title: ESLint, Prettier, Vue3 에 적용하기
+    event: Team Meeting
+    date: 08/2022
+    comment: ESLint 적용법 정리
+    slides: ../../assets/pdfjs/web/viewer.html?file=ESLintnFormatter.pdf # potential link to slides
+- presentation:
+    title: Flutter SQFlite 의 사용법
+    event: Study Meeting
+    date: 08/2022
+    comment: SQFlite 의 사용법 정리
+    slides: ../../assets/pdfjs/web/viewer.html?file=sqflite_package.pdf # potential link to slides
