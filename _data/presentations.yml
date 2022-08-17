@@ -16,3 +16,9 @@
     date: 08/2022
     comment: SQFlite 의 사용법 정리
     slides: ../../assets/pdfjs/web/viewer.html?file=sqflite_package.pdf # potential link to slides
+- presentation:
+    title: RemoteCall 교육
+    event: Education
+    date: 08/2022
+    comment: 원격요청에 대한 교육
+    slides: ../../assets/pdfjs/web/viewer.html?file=RemoteCall.pdf # potential link to slides
