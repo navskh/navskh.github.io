@@ -36,7 +36,7 @@ async function clickEvent() {
 }
 
 function makeList(fireDolist){
-  // 먼저 정렬
+  // 먼저 category 정렬
   var newObj = {};
   Object.keys(fireDolist).sort().forEach(function(key) {
     newObj[key] = fireDolist[key];
@@ -44,13 +44,25 @@ function makeList(fireDolist){
   
   $('#showList').append(`<section class="dolist-content">`);
   var idcnt = 0;
+
+  
   for(var idx in newObj){
     if(!isEmptyObj(newObj[idx])){
       $('#showList').append(`<h4 id="${idx}">${idx}</h4>`);
     }
-    for (var list in newObj[idx]){
-      var checkedValue = newObj[idx][list];
-      $('#showList').append(`<li id="${idcnt}" class="task-list-item"><input ${checkedValue} type="checkbox" class="task-list-item-checkbox" onclick='clickEvent()'>${list} </li>`);
+    // list 정렬
+    var newnewObj = {};
+    Object.keys(newObj[idx]).sort().forEach(function(key) {
+      newnewObj[key] = newObj[idx][key];
+    });
+    for (var list in newnewObj){
+      var checkedValue = newnewObj[list];
+      $('#showList').append(`
+        <li id="${idcnt}" class="task-list-item">
+          ${checkedValue == 'checked' ? '<del>' : ''}
+          <input ${checkedValue} type="checkbox" class="task-list-item-checkbox" onclick='clickEvent()' />${list} 
+          ${checkedValue == 'checked' ? '</del>' : ''}
+        </li>`);
       $('#'+idcnt).append(`<a name="delete${idcnt}" href="#" class="delete" id="modal" onclick="deletelist(${idcnt})">삭제</a>`)
       idcnt++;
     }
