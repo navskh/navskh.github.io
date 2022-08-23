@@ -28,8 +28,22 @@ $(document).ready(function() {
 
 })
 
-async function clickEvent() {
+async function clickEvent(thisEle) {
+  var thisChecked = $(thisEle).prop('checked');
+  console.log(thisChecked);
+  if(thisChecked){
+    var thisHtml = $(thisEle).parent().html().replace('unchecked', 'checked');
+    thisHtml = `<del>${thisHtml}</del>`;
+    $(thisEle).parent().html(thisHtml);
+  } else{
+    var thisHtml = $(thisEle).parent().parent().html();
+    thisHtml = thisHtml.replace('<del>', '').replace('</del>', '').replace('checked', 'unchecked');
+    $(thisEle).parent().parent().html(thisHtml);
+  }
+  
+
   applyData();
+  console.log(dolist);
   await dbService.collection("todo").doc("dolist1").set({
     dolist
   });
@@ -55,12 +69,14 @@ function makeList(fireDolist){
     Object.keys(newObj[idx]).sort().forEach(function(key) {
       newnewObj[key] = newObj[idx][key];
     });
+    var checkboxStyle='transform: scale(2);margin: 2px 11px 0 0;accent-color: cornflowerblue;'
+
     for (var list in newnewObj){
       var checkedValue = newnewObj[list];
       $('#showList').append(`
         <li id="${idcnt}" class="task-list-item">
           ${checkedValue == 'checked' ? '<del>' : ''}
-          <input ${checkedValue} type="checkbox" class="task-list-item-checkbox" onclick='clickEvent()' />${list} 
+          <input ${checkedValue} type="checkbox" class="task-list-item-checkbox" onclick='clickEvent(this)' style="${checkboxStyle}"/>${list} 
           ${checkedValue == 'checked' ? '</del>' : ''}
         </li>`);
       $('#'+idcnt).append(`<a name="delete${idcnt}" href="#" class="delete" id="modal" onclick="deletelist(${idcnt})">삭제</a>`)
@@ -85,12 +101,12 @@ function applyData() {
 
     $(ele).nextUntil('h4').each((idx, list) => {
       var checkedFlag = $(list).find('input').prop('checked') == true ? 'checked' : 'unchecked';
-      listItem[$(list).text().replaceAll(' 삭제', '')] = checkedFlag;
+      listItem[$(list).text().replaceAll(' 삭제', '').replaceAll(/\n/g, '').trim()] = checkedFlag;
     });
+    console.log(listItem);
     dolist[categoryName] = listItem;
   })
 
-  console.log(dolist);
 }
 
 function clearDolist() {
