@@ -53,6 +53,8 @@ comments : True
 - Prettier / Yes 
 
 위와 같이 세팅
+여기 부분 혹시몰라 명령어 추가함.
+npm i -D @vue/eslint-config-prettier eslint eslint-plugin-vue prettier
 
 --- 
 
