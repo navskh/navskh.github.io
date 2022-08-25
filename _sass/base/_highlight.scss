@@ -36,6 +36,12 @@
   .highlight {
     background: $dt-gray-dark;
     color: $dt-gray-light;
+    padding: 10px; 
+    overflow: auto;
+    margin : 10px 0;
+    font-family: 'Fira Code', "D2 Coding", monospace;
+    * {font-size:0.9rem;
+    }
 
     .hll,
     .s,
