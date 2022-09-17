@@ -1,0 +1,67 @@
+[
+  {
+    "IpsiTitle": "원서접수",
+    "IpsiInformation": [
+      {
+        "IpsiSubTitle": "입학원서 접수(인터넷 접수)",
+        "IpsiContent": "2023.12.30 (목) 10:00 ~ 2022.01.03 (월) 18:00",
+        "IpsiMiniPhrase": ""
+      },
+      {
+        "IpsiSubTitle": "서류제출",
+        "IpsiContent": "2023.01.10 (월)",
+        "IpsiMiniPhrase": ""
+      }
+    ]
+  },
+  {
+    "IpsiTitle": "1단계 합격자 발표",
+    "IpsiInformation": [
+      {
+        "IpsiSubTitle": "1단계 합격자 발표",
+        "IpsiContent": "2023.12.30 (목) 10:00 ~ 2022.01.03 (월) 18:00",
+        "IpsiMiniPhrase": ""
+      },
+      {
+        "IpsiSubTitle": "실기고사",
+        "IpsiContent": "2023.01.10 (월)",
+        "IpsiMiniPhrase": ""
+      }
+    ]
+  },
+  {
+    "IpsiTitle": "발표&등록",
+    "IpsiInformation": [
+      {
+        "IpsiSubTitle": "합격자 발표",
+        "IpsiContent": "2023.12.30 (목) 10:00 ~ 2022.01.03 (월) 18:00",
+        "IpsiMiniPhrase": ""
+      },
+      {
+        "IpsiSubTitle": "합격통지서 교부",
+        "IpsiContent": "2023.12.30 (목) 10:00 ~ 2022.01.03 (월) 18:00",
+        "IpsiMiniPhrase": ""
+      },
+      {
+        "IpsiSubTitle": "합격자 등록",
+        "IpsiContent": "2023.12.30 (목) 10:00 ~ 2022.01.03 (월) 18:00",
+        "IpsiMiniPhrase": ""
+      },
+      {
+        "IpsiSubTitle": "추가합격자 발표",
+        "IpsiContent": "2023.12.30 (목) 10:00 ~ 2022.01.03 (월) 18:00",
+        "IpsiMiniPhrase": ""
+      },
+      {
+        "IpsiSubTitle": "추가합격자 등록",
+        "IpsiContent": "2023.12.30 (목) 10:00 ~ 2022.01.03 (월) 18:00",
+        "IpsiMiniPhrase": ""
+      },
+      {
+        "IpsiSubTitle": "등록금 납부",
+        "IpsiContent": "2023.01.10 (월)",
+        "IpsiMiniPhrase": ""
+      }
+    ]
+  }
+]

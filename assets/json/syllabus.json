@@ -1,0 +1,114 @@
+[
+  {
+    "SyllabusInformation": {
+      "SyllabusTitle": "지원자격",
+      "SyllabusContent": "고등학교 졸업(예정)자 또는 법령에 의하여 이와 동등 이상의 학력을 갖춘 자"
+    },
+    "SyllabusTable": {
+      "SyllabusTitle": "전형방법",
+      "TableHeader": [
+        {
+          "HeaderTitle": "전형단계",
+          "HeaderHeight": 150,
+          "HeaderWidth": 30
+        },
+        {
+          "HeaderTitle": "총점전형",
+          "HeaderHeight": 150,
+          "HeaderWidth": 30
+        },
+        {
+          "HeaderTitle": "전형요소별 배점",
+          "HeaderHeight": 450,
+          "HeaderWidth": 30
+        }
+      ],
+      "TableRow": [
+        {
+          "RowTitle": "일괄합산",
+          "RowHeight": 150,
+          "RowWidth": 30
+        },
+        {
+          "RowTitle": "1,000점",
+          "RowHeight": 150,
+          "RowWidth": 30
+        },
+        {
+          "RowTitle": "학생부 교과성적 900점 + 출석성적 100점",
+          "RowHeight": 450,
+          "RowWidth": 30
+        }
+      ]
+    },
+    "SyllabusTable2": {
+      "SyllabusTitle": "수능최저학력기준(한국사 영역 제외)",
+      "TableHeader": [
+        {
+          "HeaderTitle": "전형단계",
+          "HeaderHeight": 150,
+          "HeaderWidth": 30
+        },
+        {
+          "HeaderTitle": "총점전형",
+          "HeaderHeight": 150,
+          "HeaderWidth": 30,
+          "SubHeader": [
+            {
+              "SubHeaderTitle": "국어",
+              "SubHeaderWidth": 60,
+              "SubHeaderHeight": 30
+            },
+            {
+              "SubHeaderTitle": "수학",
+              "SubHeaderWidth": 60,
+              "SubHeaderHeight": 30
+            },
+            {
+              "SubHeaderTitle": "영어",
+              "SubHeaderWidth": 60,
+              "SubHeaderHeight": 30
+            },
+            {
+              "SubHeaderTitle": "탐구",
+              "SubHeaderWidth": 120,
+              "SubHeaderHeight": 30
+            }
+          ]
+        },
+        {
+          "HeaderTitle": "최저학력기준",
+          "HeaderHeight": 300,
+          "HeaderWidth": 60
+        }
+      ],
+      "TableRow": [
+        {
+          "RowTitle": "자연계",
+          "RowHeight": 150,
+          "RowWidth": 80
+        },
+        {
+          "RowTitle": "0",
+          "RowHeight": 60,
+          "RowWidth": 80
+        },
+        {
+          "RowTitle": "0",
+          "RowHeight": 60,
+          "RowWidth": 80
+        },
+        {
+          "RowTitle": "0\n(사탐 또는 과탐)",
+          "RowHeight": 120,
+          "RowWidth": 80
+        },
+        {
+          "RowTitle": "수학포함 2개 영역 합 9등급 이내\n(탐구 과목은 1개 과목 적용)\n다만, 수학'확률과 통계' 선택 시 1등급 하향 적용함",
+          "RowHeight": 300,
+          "RowWidth": 80
+        }
+      ]
+    }
+  }
+]
