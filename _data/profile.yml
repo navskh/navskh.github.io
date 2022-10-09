@@ -13,13 +13,12 @@ interests:
   - TypeScript
   - Nest.js
   - Vue3
-  - Flutter
 
 skills: 
-  - skill: HTML5 & CSS & JS
+  - skill: HTML5 & CSS & JS & jQuery
     value: 100  # Percent value
-  - skill: jQuery
-    value: 100  # Percent value
+  - skill: Dart & Flutter
+    value: 90  # Percent value
   - skill: VUE.js
     value: 90  # Percent value
   - skill: Node.js
