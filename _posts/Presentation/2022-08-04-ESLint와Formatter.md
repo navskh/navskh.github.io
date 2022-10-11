@@ -47,7 +47,7 @@ comments : True
 ```$ vue init```
 
 실행화면은 아래와 같다.
-![](../../assets/img/vue%20init%ED%99%94%EB%A9%B4.png)
+![](/assets/img/vue%20init%ED%99%94%EB%A9%B4.png)
 
 - ESLint / Yes
 - Prettier / Yes 
@@ -84,7 +84,7 @@ module.exports = {
 
 vue에는 style-guide가 있음 특정 패턴으로 개발하면 굉장히 유용하다.  
 
-![이미지](../../assets/img/vue%20%EC%8A%A4%ED%83%80%EC%9D%BC%20%EA%B0%80%EC%9D%B4%EB%93%9C.png)
+![이미지](/assets/img/vue%20%EC%8A%A4%ED%83%80%EC%9D%BC%20%EA%B0%80%EC%9D%B4%EB%93%9C.png)
 
 [참조링크](https://kr.vuejs.org/v2/style-guide/index.html)
 
@@ -97,7 +97,7 @@ vue에는 style-guide가 있음 특정 패턴으로 개발하면 굉장히 유�
 ``` "eslint:recommended", ```
 
 ESLint의 추천 항목을 자동으로 검사해라.
-<img src=../../assets/img/ESlint%ED%99%94%EB%A9%B4.png style="width:500px">
+<img src=/assets/img/ESlint%ED%99%94%EB%A9%B4.png style="width:500px">
 
 [ESLint Rules 관련 정보](https://eslint.org/docs/latest/rules/)
 
@@ -147,7 +147,7 @@ Prettier에 의해 저장 시 알아서 Rule에 맞게 변환되어 저장될 �
 ```ctrl``` + ```,``` 를 누른 후 
 ESLint를 검색한 후 Validate를 찾아서 Settings.json을 클릭한다.
 
-<img src=../../assets/img/ESLint%20VSCode%20%EC%84%A4%EC%A0%95.png style="width:800px">
+<img src=/assets/img/ESLint%20VSCode%20%EC%84%A4%EC%A0%95.png style="width:800px">
 
 ---
 ## ESLint Settins.josn 수정하기
@@ -186,7 +186,7 @@ ESLint를 검색한 후 Validate를 찾아서 Settings.json을 클릭한다.
 
 - 반드시 format on save 옵션은 해제해줘야 함
 (prettier 플러그인이 있으면 돌게 됨)
-<img src=../../assets/img/FormatonSave%ED%95%B4%EC%A0%9C.png style="width:600px">
+<img src=/assets/img/FormatonSave%ED%95%B4%EC%A0%9C.png style="width:600px">
 
 - npm run lint를 통해 전체 파일에 lint 진행을 할 수 있다.
 
@@ -194,4 +194,4 @@ ESLint를 검색한 후 Validate를 찾아서 Settings.json을 클릭한다.
 
 ## 적용되는 화면 (영상 시연)
 
-![시연영상](../../assets/img/eslint%EC%8B%9C%EC%97%B0.gif)
+![시연영상](/assets/img/eslint%EC%8B%9C%EC%97%B0.gif)
