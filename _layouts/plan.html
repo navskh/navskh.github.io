@@ -48,13 +48,13 @@ layout: page
     <div id="top" class="top-btn" onclick="moveTop()">
       <i class="fas fa-chevron-up"></i>
     </div>
-    <a href="#" class="float" id="modal" onclick="showModal()">
+    <a href="#" class="float" id="modal" onclick="showModal()" ondblclick="showMyModal()">
       <i class="fa fa-plus my-float"></i>
     </a>
   </div>
   <div id="dia" class="modal">
     <article class="modal__article">
-      <h4 class="modal-title">할일 추가하기</h4>
+      <h4 class="modal-title">암송 구절 추가하기</h4>
     </article>
     <div id="modal_body">
       <div class="omrs-input-group">
@@ -86,6 +86,13 @@ layout: page
   function showModal() {
       $("#dia").css('opacity', 1);
       $("#dia").css('top', '50%');
+      $('#category-item').val(`Myoung's OYO`);
+  }
+
+  function showMyModal() {
+      $("#dia").css('opacity', 1);
+      $("#dia").css('top', '50%');
+      $('#category-item').val(`Young's OYO`);
   }
 
   function closeModal() {
