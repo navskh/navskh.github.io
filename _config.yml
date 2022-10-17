@@ -4,7 +4,7 @@ url: "navskh.github.io"
 
 # Blog Setting
 blog: True
-dolist_days: 5
+dolist_days: 7
 dolist_version: 2
 
 # Language of the website
