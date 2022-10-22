@@ -19,16 +19,19 @@ var dolist = {};
 
 
 $(document).ready(async function () {
-  dbService
-    .collection("todo")
-    .get()
-    .then((result) => {
-      result.forEach((doc) => {
-        console.log(doc.data());
-        dolist = doc.data().dolist;
-        makeList(doc.data().dolist);
-      });
-    });
+  var result1 = await dbService.collection('todo').get();
+
+  result1.forEach((doc) => {
+    // console.log(doc.data());
+    dolist = doc.data().dolist;
+    makeList(doc.data().dolist);
+  })
+
+  var result2 = await dbService.collection('60verse').get();
+  result2.forEach((doc)=> {
+    console.log(doc.id);
+    console.log(doc.data());
+  });
 });
 
 async function clickEvent(thisEle) {
