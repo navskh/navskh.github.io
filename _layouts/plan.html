@@ -70,11 +70,23 @@ layout: page
         </label>
       </div>
     </div>
-      
     <footer style="margin-top: 4rem;">
       <center>
         <a style="cursor:pointer" class="button -close" onclick="closeModal()">close</a>
         <a style="cursor:pointer" class="button -add" onclick="addToDo()">add</a>
+      </center>
+    </footer>
+  </div>
+
+  <div id="verseDetail" class="modal">
+    <article class="modal__article">
+      <h4 class="modal-title">구절 상세보기</h4>
+    </article>
+    <div id="vd_body">
+    </div>
+    <footer style="margin-top: 4rem;">
+      <center>
+        <a style="cursor:pointer" class="button -close" onclick="closeDetail()">close</a>
       </center>
     </footer>
   </div>
@@ -109,6 +121,12 @@ layout: page
 </script>
 
 <style>
+a:hover{
+  background-color: #1e4bd1;
+  color: white;
+  cursor: pointer;
+}
+
   .delete{
     text-align: center;
     box-shadow: 2px 2px 3px #999;

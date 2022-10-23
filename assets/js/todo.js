@@ -19,6 +19,27 @@ var dolist = {};
 
 
 $(document).ready(async function () {
+
+  var arrSixtyVerse = ['A', 'A', 'B', 'C', 'D', 'E', '토요일'];
+  var day = new Date();
+  var thisSeq = arrSixtyVerse[day.getDay()];
+
+  // 날이 바뀌면 localStorage Clear!
+  var savedDate = window.localStorage.getItem('savedDate');
+  console.log('[log] savedDate : ' + savedDate , 'thisDate : ' + day.getDate());
+  if(savedDate != day.getDate()){
+    console.log('날이 바뀌었으므로 localStroge Clear됩니다!');
+    window.localStorage.clear();
+    window.localStorage.setItem('savedDate', day.getDate());
+  }
+
+  var result2 = await dbService.collection('60verse').get();
+  result2.forEach((doc)=> {
+    if(doc.id.indexOf(thisSeq) > -1){
+      makeDailySixtyVerse(doc.data());
+    }
+  });
+
   var result1 = await dbService.collection('todo').get();
 
   result1.forEach((doc) => {
@@ -27,16 +48,66 @@ $(document).ready(async function () {
     makeList(doc.data().dolist);
   })
 
-  var result2 = await dbService.collection('60verse').get();
-  result2.forEach((doc)=> {
-    console.log(doc.id);
-    console.log(doc.data());
-  });
 });
+
+function makeDailySixtyVerse(verses) {
+  $("#showList").append(`<h4 id="60verseHeader">오늘의 60구절</h4>`);
+
+  // 무작위로 가져와버려서 한번 정렬해줘야 함.
+  sortedVerse = Object.entries(verses).sort(function(a, b){
+    return  b[0].split('-')[1] - a[0].split('-')[1];
+  });
+  
+
+  for(index in sortedVerse){
+    var verse = sortedVerse[index];
+    var thisChecked = window.localStorage.getItem(verse[0]) ?? 'unchecked';
+    var checkBox = `<input type=checkbox class="task-list-item-checkbox" style="transform: scale(2);margin: 2px 11px 0 0;accent-color: cornflowerblue;" onclick="makeDel(this)" ${thisChecked}/>`;
+    var isOpenDel = thisChecked == 'checked' ? '<del>' : '';
+    var isCloseDel = thisChecked == 'checked' ? '</del>' : '';
+    var thisContent = ` <a onclick="showDetail('${verse}')"> ${verse[1].split('/',2)} </a> `
+    var strHtml = `<div id='${verse[0]}'> ${isOpenDel} ${checkBox} <b>${verse[0]}</b> ${thisContent} ${isCloseDel} </div>`;
+    $('#60verseHeader').after(strHtml);
+  }
+}
+
+function showDetail(verseDetail) {
+  var thisVerse = verseDetail.split('/');
+  console.log('call!');
+  var makeStr = `<h4> ${thisVerse[0]} </h4> <h5> ( ${thisVerse[1]} )</h5> <p> ${thisVerse[2]} <p>`;
+  $('#verseDetail').css('opacity', 1);
+  $('#verseDetail').css('top', '50%');
+  $('#vd_body').css('padding', '30px');
+  $('#vd_body').html(makeStr);
+}
+
+function closeDetail() {
+  $('#verseDetail').css('top', '-50%');
+  $('#verseDetail').css('opacity', 0);
+}
+
+function makeDel(thisEle){
+  var thisChecked = $(thisEle).prop("checked");
+  if (thisChecked) {
+    var thisIndex = $(thisEle).parent().attr('id');
+    window.localStorage.setItem(thisIndex, 'checked');
+    var thisHtml = $(thisEle).parent().html().replace("unchecked", "checked");
+    thisHtml = `<del>${thisHtml}</del>`;
+    $(thisEle).parent().html(thisHtml);
+  } else {
+    var thisIndex = $(thisEle).parent().parent().attr('id');
+    window.localStorage.setItem(thisIndex, 'unchecked');
+    var thisHtml = $(thisEle).parent().parent().html();
+    thisHtml = thisHtml
+      .replace("<del>", "")
+      .replace("</del>", "")
+      .replace("checked", "unchecked");
+    $(thisEle).parent().parent().html(thisHtml);
+  }
+}
 
 async function clickEvent(thisEle) {
   var thisChecked = $(thisEle).prop("checked");
-  console.log(thisChecked);
   if (thisChecked) {
     var thisHtml = $(thisEle).parent().html().replace("unchecked", "checked");
     thisHtml = `<del>${thisHtml}</del>`;
