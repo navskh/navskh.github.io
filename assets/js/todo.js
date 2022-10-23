@@ -74,7 +74,7 @@ function makeDailySixtyVerse(verses) {
 function showDetail(verseDetail) {
   var thisVerse = verseDetail.split('/');
   console.log('call!');
-  var makeStr = `<h4> ${thisVerse[0]} </h4> <h5> ( ${thisVerse[1]} )</h5> <p> ${thisVerse[2]} <p>`;
+  var makeStr = `<h4 class="stopFound"> ${thisVerse[0]} </h4> <h5> ( ${thisVerse[1]} )</h5> <p> ${thisVerse[2]} <p>`;
   $('#verseDetail').css('opacity', 1);
   $('#verseDetail').css('top', '50%');
   $('#vd_body').css('padding', '30px');
@@ -156,10 +156,11 @@ function makeList(fireDolist) {
 
     for (var list in newnewObj) {
       var checkedValue = newnewObj[list];
+      console.log(list);
       $("#showList").append(`
         <li id="${idcnt}" class="task-list-item">
           ${checkedValue == "checked" ? "<del>" : ""}
-          <input ${checkedValue} type="checkbox" class="task-list-item-checkbox" onclick='clickEvent(this)' style="${checkboxStyle}"/>${list} 
+          <input ${checkedValue} type="checkbox" class="task-list-item-checkbox" onclick='clickEvent(this)' style="${checkboxStyle}"/> <a onclick="searchWord('${list}')"> ${list} </a>
           ${checkedValue == "checked" ? "</del>" : ""}
         </li>`);
       $("#" + idcnt).append(
@@ -168,6 +169,39 @@ function makeList(fireDolist) {
       idcnt++;
     }
   }
+}
+
+function searchWord(word) {
+  var thisKeyword = word.replace('(','').replace(')', '');
+
+
+  var thisContent = bible[thisKeyword];
+
+  exp = /,|-|~/;
+
+  if(exp.test(thisKeyword)){
+    var thisJang = thisKeyword.split(':')[0];
+    if( thisKeyword.split(',').length >= 2 ){
+      var thisVerse = [thisKeyword.split(',')[0] , thisJang + ':' + thisKeyword.split(',')[1] ];
+      thisContent = bible[thisVerse[0]] + ' ' + bible[thisVerse[1]];
+    }
+    else if(thisKeyword.split('~').length >= 2){
+      var thisVerse = [thisKeyword.split('~')[0] , thisJang + ':' + thisKeyword.split('~')[1] ];
+      thisContent = bible[thisVerse[0]]  + ' ' + bible[thisVerse[1]];
+    }
+    else if(thisKeyword.split('-').length >= 2) {
+      var thisVerse = [thisKeyword.split('-')[0] , thisJang + ':' + thisKeyword.split('-')[1] ];
+      thisContent = bible[thisVerse[0]]  + ' ' + bible[thisVerse[1]];
+    }
+  }
+  
+
+
+  var makeStr = `<h5> ${thisKeyword} </h5> <p> ${thisContent} </p> `;
+  $('#verseDetail').css('opacity', 1);
+  $('#verseDetail').css('top', '50%');
+  $('#vd_body').css('padding', '30px');
+  $('#vd_body').html(makeStr);
 }
 function isEmptyObj(obj) {
   if (obj.constructor === Object && Object.keys(obj).length === 0) {
@@ -181,6 +215,8 @@ function applyData() {
   // dolist 적용
   $("h4")
     .not(".modal-title")
+    .not("#60verseHeader")
+    .not(".stopFound")
     .each((idx, ele) => {
       var categoryName = $(ele).text();
       var listItem = {};
@@ -234,6 +270,8 @@ async function deletelist(idx) {
 
   applyData();
 
+  console.log(dolist);
+
   await dbService
     .collection("todo")
     .doc("dolist1")
@@ -269,6 +307,8 @@ async function addToDo() {
   } else {
     dolist[addCategory][dolistItem] = 'unchecked';
   }
+
+  console.log(dolist);
   
   await dbService.collection("todo").doc("dolist1").set({
     dolist
