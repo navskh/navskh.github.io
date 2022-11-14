@@ -100,11 +100,46 @@ layout: page
       </center>
     </footer>
   </div>
+
+  <div id="bak" style="width:100%;height:100%;top:0px;position:absolute; z-index:1;background:black;visibility:hidden;">
+    <div class="form__group field">
+      <center>
+        <img src="/assets/img/300.jpg" />
+      </center>
+      <input type="input" class="form__field" placeholder="비밀번호를 입력하세요" name="Password" id='password' required onkeypress="passwordCommit()" />
+    </div>
+  </div>
 </div>
 
 {% include scripts/plan_setting.html %}
 
 <script>
+function passwordCommit() {
+  if(event.keyCode == 13) {// enter 눌렀을 때
+    console.log($('#password').val());
+    if($('#password').val() == '281315'){
+      window.localStorage.setItem('pass', true);
+      var obj = document.getElementById("bak");
+      obj.style.visibility = "hidden"
+    }
+  }
+}
+if(window.localStorage.getItem('pass')) {
+  var obj = document.getElementById("bak");
+  obj.style.visibility = "hidden";
+}
+else {
+  hid();
+}
+
+
+function hid(){
+    var obj = document.getElementById("bak");
+    obj.style.width = document.body.scrollWidth + 'px';
+    obj.style.height = document.body.scrollHeight+100 + 'px';
+    obj.style.visibility = "visible";
+}
+
   function showModal() {
       $("#dia").css('opacity', 1);
       $("#dia").css('top', '50%');
@@ -441,4 +476,53 @@ div.omrs-input-group {
   display: table;
   clear: both;
 }
+
+.form__group {
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 10px;
+  width: 50%;
+}
+
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid #9b9b9b;
+  outline: 0;
+  font-size: 1.3rem;
+  color: #fff;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+
+.form__field:focus.form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: #11998e;
+  font-weight:700;    
+  padding-bottom: 6px;  
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, #11998e,#38ef7d);
+  border-image-slice: 1;
+}
+/* reset input */
+
+/* demo */
+#bak {
+  font-family: 'Poppins', sans-serif; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 1.5rem;
+  background-color:#222222;
+}
+
 </style>
