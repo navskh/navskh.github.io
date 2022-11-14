@@ -34,14 +34,24 @@ layout: page
           </li>
         </ul>
       </div>
-      <div id="showList">
-        <section class="dolist-header">
-          <h1 class="title">오늘의 암송 체킹</h1>
-          <p class="subtitle"></p>
-          <p class="meta" id="today">
-            August 13, 2022
-          </p>
-        </section>
+      <div class="row">
+        <div id="DEPList" class="column">
+          <section class="dolist-header">
+            <h1 class="title">오늘의 DEP242</h1>
+            <p class="subtitle"></p>
+            <p class="meta" id="DEP">
+            </p>
+          </section>
+        </div>
+        <div id="showList" class="column">
+          <section class="dolist-header">
+            <h1 class="title">오늘의 암송 체킹</h1>
+            <p class="subtitle"></p>
+            <p class="meta" id="today">
+              August 13, 2022
+            </p>
+          </section>
+        </div>
       </div>
 
     </section>
@@ -84,9 +94,9 @@ layout: page
     </article>
     <div id="vd_body">
     </div>
-    <footer style="margin-top: 4rem;">
+    <footer style="margin-bottom: 3rem;">
       <center>
-        <a style="cursor:pointer" class="button -close" onclick="closeDetail()">close</a>
+        <a style="cursor:pointer;" class="button -close" onclick="closeDetail()">close</a>
       </center>
     </footer>
   </div>
@@ -230,8 +240,8 @@ a:hover{
   }
 
   .modal {
-      width: 24rem;
-      height: 24rem;
+      width: auto;
+      height: auto;
       color: #33465E;
       background-color: white;
       position: fixed;
@@ -419,4 +429,16 @@ div.omrs-input-group {
 .omrs-input-filled > input {
 	background: var(--omrs-color-bg-low-contrast);
 }
-  </style>
+
+.column {
+  float: left;
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>

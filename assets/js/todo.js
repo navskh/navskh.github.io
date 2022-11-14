@@ -20,7 +20,7 @@ var dolist = {};
 
 $(document).ready(async function () {
 
-  var arrSixtyVerse = ['A', 'A', 'B', 'C', 'D', 'E', '토요일'];
+  var arrSixtyVerse = ['일요일', 'A', 'B', 'C', 'D', 'E', '토요일'];
   var day = new Date();
   var thisSeq = arrSixtyVerse[day.getDay()];
 
@@ -48,7 +48,70 @@ $(document).ready(async function () {
     makeList(doc.data().dolist);
   })
 
+
+  // 여기서 부터 DEP 만들어주는 영역
+  makeDEPList();
+
 });
+
+// DEP 242 구절 리스트 만들기
+async function makeDEPList() {
+  const startDate = new Date('2022-11-14');
+  const todayDate = new Date();
+
+  const diffDate = startDate.getTime() - todayDate.getTime();
+  const diff = (diffDate / (1000 * 60 * 60 * 24)).toFixed(0);
+
+  const todayPart = diff % 14 + 1;
+
+  const response = await fetch(`/assets/txt/DEP${todayPart}일차.json`);
+  const obj = await response.json();
+
+  var title = `<h4> ${obj.title} </h4>`
+  var upperCategory = '';
+  var middleCategory = '';
+  var miniCategory = '';
+
+  $('#DEPList').append(title);
+
+  obj.content.forEach((item, idx) => { 
+    if (upperCategory != item['대제목']) {
+      upperCategory = item['대제목'];
+      $('#DEPList').append(`<h5 style="text-indent: 10px"> ${upperCategory} </h5>`);
+    }
+
+    if (middleCategory != item['중제목']) {
+      middleCategory = item['중제목'];
+      $('#DEPList').append(`<h6 style="text-indent: 20px"> ${middleCategory} </h6>`);
+    }
+
+    if (miniCategory != item['소제목']) {
+      miniCategory = item['소제목'];
+      $('#DEPList').append(`<h6 style="text-indent: 20px"> ${miniCategory} </h6>`);
+    }
+
+    var thisChecked = window.localStorage.getItem(item.verse) ?? 'unchecked';
+    var checkBox = `<input type=checkbox class="task-list-item-checkbox" style="transform: scale(2);margin: 2px 11px 0 0;accent-color: cornflowerblue;" onclick="makeDel(this)" ${thisChecked}/>`;
+
+    var thisCategory = '';
+    miniCategory != '' ? thisCategory = miniCategory
+      : middleCategory != '' ? thisCategory = middleCategory
+        : upperCategory != '' ? thisCategory = upperCategory
+        : thisCategory = '';
+
+    $('#DEPList').append(`<p id="${item.verse}" style="text-indent: 30px"> ${checkBox} <a onclick="showDEPDetail('${thisCategory}','${item.verse}','${item.text}')"> ${item.verse} </a> </p>`);
+  })
+
+
+}
+
+function showDEPDetail(category, verse, text) {
+  var makeStr = `<h4 class="stopFound"> ${category} </h4> <h5> ( ${verse} )</h5> <p> ${text} <p>`;
+  $('#verseDetail').css('opacity', 1);
+  $('#verseDetail').css('top', '50%');
+  $('#vd_body').css('padding', '30px');
+  $('#vd_body').html(makeStr);
+}
 
 function makeDailySixtyVerse(verses) {
   $("#showList").append(`<h4 id="60verseHeader">오늘의 60구절</h4>`);
@@ -73,7 +136,6 @@ function makeDailySixtyVerse(verses) {
 
 function showDetail(verseDetail) {
   var thisVerse = verseDetail.split('/');
-  console.log('call!');
   var makeStr = `<h4 class="stopFound"> ${thisVerse[0]} </h4> <h5> ( ${thisVerse[1]} )</h5> <p> ${thisVerse[2]} <p>`;
   $('#verseDetail').css('opacity', 1);
   $('#verseDetail').css('top', '50%');
