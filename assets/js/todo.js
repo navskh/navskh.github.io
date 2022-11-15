@@ -58,11 +58,13 @@ $(document).ready(async function () {
 async function makeDEPList() {
   const startDate = new Date('2022-11-14');
   const todayDate = new Date();
+  console.log(startDate, todayDate);
 
-  const diffDate = startDate.getTime() - todayDate.getTime();
+  const diffDate = todayDate.getTime() - startDate.getTime();
   const diff = (diffDate / (1000 * 60 * 60 * 24)).toFixed(0);
 
   const todayPart = diff % 14 + 1;
+
 
   const response = await fetch(`/assets/txt/DEP${todayPart}일차.json`);
   const obj = await response.json();
