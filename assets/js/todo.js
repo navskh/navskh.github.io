@@ -20,7 +20,23 @@ var dolist = {};
 
 $(document).ready(async function () {
 
-  var arrSixtyVerse = ['일요일', 'A', 'B', 'C', 'D', 'E', 'A'];
+  // 토, 일에는 랜덤으로 뜨도록 만듬
+  var isFirst = window.localStorage.getItem('isFirst');
+
+  var todaysPart = '';
+  if(isFirst == undefined) {
+    var randomNum = (Math.random() * 10).toFixed(0) % 5;
+    var randomPart = ['A', 'B', 'C', 'D', 'E'];
+    todaysPart = randomPart[randomNum];
+    window.localStorage.setItem('isFirst', 'not first');
+    window.localStorage.setItem('todayPart', todaysPart);
+  }
+  else {
+    console.log(window.localStorage.getItem('todayPart'));
+    todaysPart = window.localStorage.getItem('todayPart');
+  }
+
+  var arrSixtyVerse = [todaysPart, 'A', 'B', 'C', 'D', 'E', todaysPart];
   var day = new Date();
   var thisSeq = arrSixtyVerse[day.getDay()];
 
@@ -43,7 +59,6 @@ $(document).ready(async function () {
   var result1 = await dbService.collection('todo').get();
 
   result1.forEach((doc) => {
-    // console.log(doc.data());
     dolist = doc.data().dolist;
     makeList(doc.data().dolist);
   })
@@ -58,7 +73,6 @@ $(document).ready(async function () {
 async function makeDEPList() {
   const startDate = new Date('2022-11-14');
   const todayDate = new Date();
-  console.log(startDate, todayDate);
 
   const diffDate = todayDate.getTime() - startDate.getTime();
   const diff = (diffDate / (1000 * 60 * 60 * 24)).toFixed(0);
@@ -186,7 +200,7 @@ async function clickEvent(thisEle) {
   }
 
   applyData();
-  console.log(dolist);
+
   await dbService.collection("todo").doc("dolist1").set({
     dolist,
   });
@@ -220,7 +234,6 @@ function makeList(fireDolist) {
 
     for (var list in newnewObj) {
       var checkedValue = newnewObj[list];
-      console.log(list);
       $("#showList").append(`
         <li id="${idcnt}" class="task-list-item">
           ${checkedValue == "checked" ? "<del>" : ""}
@@ -297,7 +310,6 @@ function applyData() {
             $(list).text().replaceAll(" 삭제", "").replaceAll(/\n/g, "").trim()
           ] = checkedFlag;
         });
-      console.log(listItem);
       dolist[categoryName] = listItem;
     });
 }
@@ -335,8 +347,6 @@ async function deletelist(idx) {
 
   applyData();
 
-  console.log(dolist);
-
   await dbService
     .collection("todo")
     .doc("dolist1")
@@ -366,15 +376,13 @@ async function addToDo() {
   var addCategory = $('#category-item').val();
 
   applyData();
-  console.log(dolist[addCategory]);
+
   if(dolist[addCategory]==undefined) {
     dolist[addCategory] = addDolist;
   } else {
     dolist[addCategory][dolistItem] = 'unchecked';
   }
 
-  console.log(dolist);
-  
   await dbService.collection("todo").doc("dolist1").set({
     dolist
   }).then(()=>{

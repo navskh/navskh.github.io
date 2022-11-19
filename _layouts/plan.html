@@ -124,6 +124,8 @@ function passwordCommit() {
     }
   }
 }
+
+console.log(window.localStorage.getItem('pass'));
 if(window.localStorage.getItem('pass')) {
   var obj = document.getElementById("bak");
   obj.style.visibility = "hidden";
@@ -135,8 +137,8 @@ else {
 
 function hid(){
     var obj = document.getElementById("bak");
-    obj.style.width = document.body.scrollWidth + 'px';
-    obj.style.height = document.body.scrollHeight+100 + 'px';
+    obj.style.width = document.body.scrollWidth+500 + 'px';
+    obj.style.height = document.body.scrollHeight+300 + 'px';
     obj.style.visibility = "visible";
 }
 
