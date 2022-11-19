@@ -20,7 +20,7 @@ var dolist = {};
 
 $(document).ready(async function () {
 
-  var arrSixtyVerse = ['일요일', 'A', 'B', 'C', 'D', 'E', '토요일'];
+  var arrSixtyVerse = ['일요일', 'A', 'B', 'C', 'D', 'E', 'A'];
   var day = new Date();
   var thisSeq = arrSixtyVerse[day.getDay()];
 
@@ -69,7 +69,7 @@ async function makeDEPList() {
   const response = await fetch(`/assets/txt/DEP${todayPart}일차.json`);
   const obj = await response.json();
 
-  var title = `<h4> ${obj.title} </h4>`
+  var title = `<h4 id="DEPtitle"> ${obj.title} </h4>`
   var upperCategory = '';
   var middleCategory = '';
   var miniCategory = '';
@@ -280,6 +280,7 @@ function applyData() {
   $("h4")
     .not(".modal-title")
     .not("#60verseHeader")
+    .not("#DEPtitle")
     .not(".stopFound")
     .each((idx, ele) => {
       var categoryName = $(ele).text();

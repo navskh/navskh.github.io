@@ -62,7 +62,7 @@ layout: page
       <i class="fa fa-plus my-float"></i>
     </a>
   </div>
-  <div id="dia" class="modal">
+  <div id="dia" class="modal2">
     <article class="modal__article">
       <h4 class="modal-title">암송 구절 추가하기</h4>
     </article>
@@ -277,6 +277,22 @@ a:hover{
   .modal {
       width: auto;
       height: auto;
+      color: #33465E;
+      background-color: white;
+      position: fixed;
+      top: -50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 1rem rgba(black, 0.1);
+      opacity: 0;
+      transition: opacity 550ms ease-in-out;
+      display: block;
+      border: 1px solid #33465E;
+  }
+
+  .modal2 {
+      width: 550px;
+      height: 350px;
       color: #33465E;
       background-color: white;
       position: fixed;
