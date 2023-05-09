@@ -7,7 +7,7 @@ author: Young
 comments: True
 ---
 
-<%raw%>
+{%raw%}
 
 ## Button 컴포넌트
 
@@ -272,4 +272,4 @@ export default Button;
 버튼을 위와 같이 내가 커스터마이징을 할 수 있다는 점이
 참 신선한것 같다.
 
-<%endraw%>
+{%endraw%}
