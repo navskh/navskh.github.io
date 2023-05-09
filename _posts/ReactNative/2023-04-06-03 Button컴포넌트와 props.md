@@ -7,6 +7,8 @@ author: Young
 comments: True
 ---
 
+<%raw%>
+
 ## Button 컴포넌트
 
 ```jsx
@@ -26,13 +28,13 @@ comments: True
 위와 같이 만들어주면
 안드로이드는
 
-- 타이틀 : 대문자
-- 백그라운드 컬러 : 파란색
+-   타이틀 : 대문자
+-   백그라운드 컬러 : 파란색
 
 ios
 
-- 타이틀 : 그대로
-- 백그라운드 컬러 : 없음
+-   타이틀 : 그대로
+-   백그라운드 컬러 : 없음
 
 위와 같이 만들어진다.
 
@@ -160,10 +162,10 @@ const Button = ({ title }) => {
 
 추가적으로
 
-- onPressIn (손 찍으면)
-- onPressOut (손 떼면)
-- onPress (손 찍었다가 떼면)
-- onLongPress (꾹 누르면)
+-   onPressIn (손 찍으면)
+-   onPressOut (손 떼면)
+-   onPress (손 찍었다가 떼면)
+-   onLongPress (꾹 누르면)
 
 ```jsx
 <Pressable
@@ -188,11 +190,11 @@ const Button = ({ title }) => {
 색상에 대해서는
 Material Design Color Tool
 
-- https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=2196F3
+-   https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=2196F3
 
 Tailwind CSS Colors
 
-- https://tailwindcss.com/docs/customizing-colors
+-   https://tailwindcss.com/docs/customizing-colors
 
 아래 링크를 참고하자.
 
@@ -269,3 +271,5 @@ export default Button;
 
 버튼을 위와 같이 내가 커스터마이징을 할 수 있다는 점이
 참 신선한것 같다.
+
+<%endraw%>
