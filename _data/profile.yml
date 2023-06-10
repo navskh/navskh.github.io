@@ -1,42 +1,35 @@
 image: assets/img/profile2.jpg
 username: Young
-description: Developer who likes to do everything
+description: Full Stack Developer, can do everything through Him who gives me strength.
 webpage: https://navskh.github.io
 experience:
-  - start: 2018-03-22
-    end: 2021-01-22
-    experience : DAEATI, Strategy R&D Team
-  - start: 2021-01-25
-    end: 
-    experience : JINHAK, Service Develop Team
+    - start: 2018-03-22
+      end: 2021-01-22
+      experience: DAEATI, Strategy R&D Team
+    - start: 2021-01-25
+      end:
+      experience: JINHAK, Service Develop Team
 interests:
-  - TypeScript
-  - Nest.js
-  - Vue3
+    - JAVA
+    - JSP/Spring
 
-skills: 
-  - skill: HTML5 & CSS & JS & jQuery
-    value: 100  # Percent value
-  - skill: Dart & Flutter
-    value: 90  # Percent value
-  - skill: VUE.js
-    value: 90  # Percent value
-  - skill: Node.js
-    value: 85  # Percent value
-  - skill: TypeScript
-    value: 50  # Percent value
+skills:
+    - skill: HTML5 & CSS & JS & jQuery & Dart & TypeScript
+      value: 100 # Percent value
+    - skill: VUE.js /Node.js / Flutter
+      value: 90 # Percent value
 social:
-  email:  # Full email address, e.g. "sample@google.com"
-  orcid: 
-  scholar: 
-  publons: 
-  research_gate: 
-  linkedin:  # Full URL 
-  github: navskh
-  gitlab: 
-  bitbucket: 
-  google_plus:
-  twitter: NavskhYoung
-  youtube:
-  facebook:
-  instagram:
+    email: # Full email address, e.g. "sample@google.com"
+    orcid:
+    scholar:
+    publons:
+    research_gate:
+    linkedin: # Full URL
+    github: navskh
+    gitlab:
+    bitbucket:
+    google_plus:
+    twitter: NavskhYoung
+    youtube:
+    facebook:
+    instagram:
