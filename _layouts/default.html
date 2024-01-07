@@ -2,6 +2,7 @@
 <html lang="{{ site.lang }}">
 {% include head.html %}
 {% include scripts/jquery.html %}
+
 <body>
   <div class="container">
     {{ content }}
@@ -15,7 +16,12 @@
   if ('12|1|2|'.indexOf(month) > -1) {
     console.log('겨울이네요 눈이 내립니다! 헷');
     console.log('현재 url', window.location.href);
-    doYouWannaBuildaSnowMan();
+    const url = window.location.href;
+    // url이 home url 이면 동작하게 만듬
+    console.log(url.split('/'));
+    if (url.split('/').length === 4) {
+      doYouWannaBuildaSnowMan();
+    }
   }
   // 눈내리는 효과를 주기위해...
   function doYouWannaBuildaSnowMan() {
