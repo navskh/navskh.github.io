@@ -19,7 +19,7 @@
     const url = window.location.href;
     // url이 home url 이면 동작하게 만듬
     console.log(url.split('/'));
-    if (url.split('/').length === 4) {
+    if (url.split('/')[3] === '') {
       doYouWannaBuildaSnowMan();
     }
   }
