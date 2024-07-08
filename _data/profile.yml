@@ -1,23 +1,31 @@
 image: assets/img/profile2.jpg
 username: Young
-description: Full Stack Developer, can do everything through Him who gives me strength.
+description: Full Stack Developer, want do everything
 webpage: https://navskh.github.io
 experience:
-    - start: 2018-03-22
-      end: 2021-01-22
-      experience: DAEATI, Strategy R&D Team
     - start: 2021-01-25
       end:
       experience: JINHAK, Service Develop Team
+    - start: 2018-03-22
+      end: 2021-01-22
+      experience: DAEATI, Strategy R&D Team
 interests:
-    - JAVA
-    - JSP/Spring
+    # - JAVA
+    # - JSP/Spring
+    - React Refactoring & Architecture
+    - Apply TypeScript at Node js , Nest js
 
 skills:
-    - skill: HTML5 & CSS & JS & jQuery & Dart & TypeScript
+    - skill: HTML5 & CSS & JS & jQuery & Dart 
       value: 100 # Percent value
-    - skill: VUE.js /Node.js / Flutter
-      value: 90 # Percent value
+    - skill: React.js & TypeScript
+      value: 100 # Percent value
+    - skill: Node.js & Express
+      value: 100 # Percent value
+    - skill: VUE.js 
+      value: 80 # Percent value
+    - skill: Dart & Flutter
+      value: 100 # Percent value
 social:
     email: # Full email address, e.g. "sample@google.com"
     orcid:
